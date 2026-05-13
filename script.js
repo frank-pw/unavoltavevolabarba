@@ -465,26 +465,29 @@ function Home() {
         musica, libri, videogiochi, zen, la mia malattia
       </div>
 
-      <div className="glass-card absolute bottom-56 right-6 hidden w-[125px] p-4 text-right text-white sm:block sm:right-9">
-        <div className="font-display mb-3 text-[11px] uppercase tracking-widest drop-shadow">Contatti</div>
-        {[
-          ["Instagram", "https://instagram.com/frank_pw", "fa-brands fa-instagram"],
-          ["X", "https://x.com/frank_pw", "fa-brands fa-x-twitter"],
-          ["Facebook", "https://facebook.com/frank_pw", "fa-brands fa-facebook"],
-          ["Threads", "https://threads.net/@frank_pw", "fa-brands fa-threads"],
-          ["Telegram", "https://t.me/frank_pw1", "fa-brands fa-telegram"],
-        ].map(([label, url, icon]) => (
-          <a
-            key={label}
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-display mb-1 block text-[15px] font-medium text-white no-underline opacity-90 transition-opacity hover:opacity-100"
-          >
-            <i className={`${icon} mr-2`} />
-            {label}
-          </a>
-        ))}
+      <div className="absolute bottom-[50vh] right-6 text-right sm:bottom-56 sm:right-9">
+        <div className="font-display mb-2 text-[11px] uppercase tracking-widest text-white drop-shadow" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>Contatti</div>
+        <div className="flex justify-end gap-4 sm:block">
+          {[
+            ["Instagram", "https://instagram.com/frank_pw", "fa-brands fa-instagram"],
+            ["X", "https://x.com/frank_pw", "fa-brands fa-x-twitter"],
+            ["Facebook", "https://facebook.com/frank_pw", "fa-brands fa-facebook"],
+            ["Threads", "https://threads.net/@frank_pw", "fa-brands fa-threads"],
+            ["Telegram", "https://t.me/frank_pw1", "fa-brands fa-telegram"],
+          ].map(([label, url, icon]) => (
+            <a
+              key={label}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-display text-white no-underline opacity-90 transition-opacity hover:opacity-100 sm:mb-1 sm:block sm:text-[15px]"
+              style={{ textShadow: "0 1px 8px rgba(0,0,0,0.8)" }}
+            >
+              <i className={`${icon} text-[22px] sm:mr-2 sm:text-[15px]`} />
+              <span className="hidden sm:inline">{label}</span>
+            </a>
+          ))}
+        </div>
       </div>
 
       <section className="absolute bottom-0 left-0 right-0 grid max-h-[42vh] gap-3 overflow-y-auto p-4 sm:max-h-none sm:grid-cols-2 sm:overflow-visible sm:p-6 lg:grid-cols-4">
@@ -514,6 +517,46 @@ function Home() {
         ))}
       </section>
     </main>
+  );
+}
+
+function PostRow({ post, index, href }) {
+  return (
+    <a
+      href={href}
+      className={`blog-row block py-5 text-[var(--ink)] no-underline md:py-7 ${
+        index === 0 ? "border-t border-[var(--ink)]" : "border-t border-[var(--line)]"
+      }`}
+    >
+      {/* Mobile */}
+      <div className="flex items-start gap-3 md:hidden">
+        <div className="h-16 w-16 flex-shrink-0 overflow-hidden" style={{ background: post.accent }}>
+          <Thumb type={post.thumb} image={post.image} imagePosition={post.imagePosition} imageScale={post.imageScale} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="mb-1 text-[11px] text-[var(--muted)]">
+            {fmtDate(post.date)} · <span style={{ color: tagColor(post.tag) }}>{post.tag}</span>
+          </div>
+          <h2 className="font-display mb-1 text-xl leading-tight">{post.title}</h2>
+          <p className="line-clamp-2 text-[13px] leading-relaxed text-[var(--body)]">{post.excerpt}</p>
+        </div>
+      </div>
+      {/* Desktop */}
+      <div className="hidden md:grid md:grid-cols-[120px_110px_1fr_80px] md:items-start md:gap-5">
+        <div className="h-[76px] w-[120px] overflow-hidden" style={{ background: post.accent }}>
+          <Thumb type={post.thumb} image={post.image} imagePosition={post.imagePosition} imageScale={post.imageScale} />
+        </div>
+        <div className="pt-1 text-[13px] text-[var(--muted)]">
+          {fmtDate(post.date)}
+          <div className="mt-1 lowercase" style={{ color: tagColor(post.tag) }}>// {post.tag}</div>
+        </div>
+        <div>
+          <h2 className="font-display mb-2 text-3xl leading-none">{post.title}</h2>
+          <p className="max-w-xl text-sm leading-relaxed text-[var(--body)]">{post.excerpt}</p>
+        </div>
+        <div className="font-display pt-2 text-right text-sm">LEGGI &rarr;</div>
+      </div>
+    </a>
   );
 }
 
@@ -557,28 +600,7 @@ function BlogList() {
 
         <section>
           {filtered.map((post, index) => (
-            <a
-              key={post.slug}
-              href={`#/blog/${post.slug}`}
-              className={`blog-row grid gap-5 py-7 text-[var(--ink)] no-underline md:grid-cols-[120px_110px_1fr_80px] ${
-                index === 0 ? "border-t border-[var(--ink)]" : "border-t border-[var(--line)]"
-              }`}
-            >
-              <div className="h-[76px] w-[120px] overflow-hidden" style={{ background: post.accent }}>
-                <Thumb type={post.thumb} image={post.image} imagePosition={post.imagePosition} imageScale={post.imageScale} />
-              </div>
-              <div className="pt-1 text-[13px] text-[var(--muted)]">
-                {fmtDate(post.date)}
-                <div className="mt-1 lowercase" style={{ color: tagColor(post.tag) }}>
-                  // {post.tag}
-                </div>
-              </div>
-              <div>
-                <h2 className="font-display mb-2 text-3xl leading-none sm:whitespace-nowrap">{post.title}</h2>
-                <p className="max-w-xl text-sm leading-relaxed text-[var(--body)]">{post.excerpt}</p>
-              </div>
-              <div className="font-display pt-2 text-right text-sm">LEGGI &rarr;</div>
-            </a>
+            <PostRow key={post.slug} post={post} index={index} href={`#/blog/${post.slug}`} />
           ))}
           <div className="border-t border-[var(--line)]" />
         </section>
@@ -627,28 +649,7 @@ function Argomenti() {
 
         <section>
           {filtered.map((post, index) => (
-            <a
-              key={post.slug}
-              href={`#/argomenti/${post.slug}`}
-              className={`blog-row grid gap-5 py-7 text-[var(--ink)] no-underline md:grid-cols-[120px_110px_1fr_80px] ${
-                index === 0 ? "border-t border-[var(--ink)]" : "border-t border-[var(--line)]"
-              }`}
-            >
-              <div className="h-[76px] w-[120px] overflow-hidden" style={{ background: post.accent }}>
-                <Thumb type={post.thumb} image={post.image} imagePosition={post.imagePosition} imageScale={post.imageScale} />
-              </div>
-              <div className="pt-1 text-[13px] text-[var(--muted)]">
-                {fmtDate(post.date)}
-                <div className="mt-1 lowercase" style={{ color: tagColor(post.tag) }}>
-                  // {post.tag}
-                </div>
-              </div>
-              <div>
-                <h2 className="font-display mb-2 text-3xl leading-none sm:whitespace-nowrap">{post.title}</h2>
-                <p className="max-w-xl text-sm leading-relaxed text-[var(--body)]">{post.excerpt}</p>
-              </div>
-              <div className="font-display pt-2 text-right text-sm">LEGGI &rarr;</div>
-            </a>
+            <PostRow key={post.slug} post={post} index={index} href={`#/argomenti/${post.slug}`} />
           ))}
           <div className="border-t border-[var(--line)]" />
         </section>
@@ -688,7 +689,7 @@ function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti
           </span>
         </div>
 
-        <h1 className="font-display mb-10 text-[clamp(34px,11vw,56px)] leading-none sm:whitespace-nowrap sm:text-[clamp(20px,6.5vw,56px)]">{post.title}</h1>
+        <h1 className="font-display mb-10 text-[clamp(28px,6vw,56px)] leading-tight">{post.title}</h1>
 
         <div className="text-[15px] leading-7 text-[var(--body)]">
           {post.body.map((paragraph, i) => {
@@ -715,7 +716,7 @@ function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti
           })}
         </div>
 
-        <div className="mt-14 border-t border-dashed border-[var(--line)] pt-6 text-[15px]">- io</div>
+        <div className="mt-14 border-t border-dashed border-[var(--line)] pt-6 text-[15px]">Francesco</div>
 
         <nav className="mt-16 grid gap-4 sm:grid-cols-2">
           <div>
@@ -745,7 +746,7 @@ function ChiSono() {
       <div className="mx-auto grid max-w-[1400px] lg:min-h-[calc(100vh-110px)] lg:grid-cols-2">
         <section className="px-6 py-14 sm:px-14 sm:py-16">
           <div className="max-w-[480px] space-y-5 text-[15px] leading-8">
-            <h1 className="font-display mb-8 text-[56px] leading-none">
+            <h1 className="font-display mb-8 text-[clamp(36px,8vw,56px)] leading-none">
               Chi Sono
             </h1>
             <p>
