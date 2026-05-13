@@ -358,7 +358,7 @@ const ARGOMENTI_POSTS = [
   {
     slug: "libri-che-mi-stanno-salvando-la-mente",
     date: "2025-05-13",
-    title: "Libri che mi stanno salvando la mente",
+    title: "Libri che salvano la mente",
     excerpt: "Quattro libri per mettere la testa da qualche parte che non sia il soffitto della stanza d'ospedale.",
     tag: "mente",
     accent: "var(--slate)",
@@ -431,8 +431,8 @@ function NavBar({ route, theme }) {
   const isActive = (name) => route === name || (name === "blog" && route === "post") || (name === "argomenti" && route === "argomento-post");
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-10 flex flex-col items-start gap-3 px-5 py-5 pointer-events-none sm:flex-row sm:items-center sm:justify-between sm:px-9 sm:py-7">
-      <a href="#/" className={`font-datatype ${linkClass} pointer-events-auto text-[22px] sm:text-[26px] ${dark ? "text-white" : "text-[var(--ink)]"}`}>
+    <header className={`fixed left-0 right-0 top-0 z-10 flex flex-col items-start gap-3 px-4 py-4 pointer-events-none sm:flex-row sm:items-center sm:justify-between sm:px-9 sm:py-7 ${dark ? "" : "bg-[rgba(250,248,239,0.92)] backdrop-blur-sm sm:bg-transparent sm:backdrop-blur-0"}`}>
+      <a href="#/" className={`font-datatype ${linkClass} pointer-events-auto max-w-full break-words text-[clamp(18px,6vw,22px)] leading-none sm:text-[26px] ${dark ? "text-white" : "text-[var(--ink)]"}`}>
         unavoltavevolabarba
       </a>
       <nav className="flex flex-wrap gap-x-4 gap-y-2 pointer-events-auto sm:gap-7">
@@ -442,7 +442,7 @@ function NavBar({ route, theme }) {
           ["#/blog", "Blog", "blog"],
           ["#/chi-sono", "Chi Sono", "chi-sono"]
         ].map(([href, label, name]) => (
-          <a key={href} href={href} className={`font-datatype ${linkClass} text-[15px] sm:text-[22px] ${isActive(name) ? activeClass : ""}`}>
+          <a key={href} href={href} className={`font-datatype ${linkClass} text-[14px] leading-none sm:text-[22px] ${isActive(name) ? activeClass : ""}`}>
             {label}
           </a>
         ))}
@@ -452,69 +452,90 @@ function NavBar({ route, theme }) {
 }
 
 function Home() {
-  return (
-    <main className="min-h-screen overflow-hidden sm:fixed sm:inset-0">
-      <img
-        className="hero-image absolute inset-0 h-full w-full object-cover"
-        src={heroPoppies}
-        alt=""
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30" />
+  const contactsRef = React.useRef(null);
 
-      <div className="font-display absolute bottom-[50vh] left-6 max-w-[260px] text-[18px] leading-snug text-white drop-shadow sm:bottom-56 sm:left-9 sm:max-w-[360px]">
-        musica, libri, videogiochi, zen, la mia malattia
+  React.useEffect(() => {
+    const el = contactsRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { el.classList.add("is-visible"); observer.disconnect(); } },
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <main className="page-fade min-h-screen">
+      <div className="fixed inset-0 -z-10">
+        <img
+          className="hero-image home-hero-image h-full w-full object-cover"
+          src={heroPoppies}
+          alt=""
+        />
       </div>
 
-      <div className="absolute bottom-[50vh] right-6 text-right sm:bottom-56 sm:right-9">
-        <div className="font-display mb-2 text-[11px] uppercase tracking-widest text-white drop-shadow" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>Contatti</div>
-        <div className="flex justify-end gap-4 sm:block">
-          {[
-            ["Instagram", "https://instagram.com/frank_pw", "fa-brands fa-instagram"],
-            ["X", "https://x.com/frank_pw", "fa-brands fa-x-twitter"],
-            ["Facebook", "https://facebook.com/frank_pw", "fa-brands fa-facebook"],
-            ["Threads", "https://threads.net/@frank_pw", "fa-brands fa-threads"],
-            ["Telegram", "https://t.me/frank_pw1", "fa-brands fa-telegram"],
-          ].map(([label, url, icon]) => (
+      <section className="home-hero relative min-h-[100svh]">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-[220px] bg-gradient-to-b from-transparent to-[#141414]" />
+
+        <section className="home-post-grid absolute bottom-8 left-0 right-0 z-10 grid max-h-[46svh] gap-3 overflow-y-auto p-3 sm:bottom-12 sm:max-h-none sm:grid-cols-2 sm:overflow-visible sm:p-6 lg:grid-cols-4">
+          {/* TODO: creare un'animazione per i riquadri in basso in modo che si vedano anche i post meno recenti */}
+          {POSTS.slice(0, 4).map((post) => (
             <a
-              key={label}
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-display text-white no-underline opacity-90 transition-opacity hover:opacity-100 sm:mb-1 sm:block sm:text-[15px]"
-              style={{ textShadow: "0 1px 8px rgba(0,0,0,0.8)" }}
+              key={post.slug}
+              href={`#/blog/${post.slug}`}
+              className="post-card glass-card flex min-h-[88px] items-stretch gap-3 p-3 text-white no-underline sm:min-h-24"
             >
-              <i className={`${icon} text-[22px] sm:mr-2 sm:text-[15px]`} />
-              <span className="hidden sm:inline">{label}</span>
+              <div
+                className="h-16 w-16 flex-shrink-0 overflow-hidden sm:h-[72px] sm:w-[72px]"
+                style={{ background: post.accent }}
+              >
+                <Thumb type={post.thumb} image={post.image} imagePosition={post.imagePosition} imageScale={post.imageScale} />
+              </div>
+              <div className="font-display flex min-w-0 flex-1 flex-col justify-between">
+                <div className="line-clamp-2 text-[15px] leading-tight drop-shadow sm:line-clamp-none sm:truncate sm:whitespace-nowrap sm:text-base">
+                  {post.title}
+                </div>
+                <div className="flex flex-wrap justify-between gap-x-2 gap-y-1 text-[12px] opacity-85 sm:text-[13px]">
+                  <span>LEGGI &rarr;</span>
+                  <span>{fmtDate(post.date)}</span>
+                </div>
+              </div>
             </a>
           ))}
-        </div>
-      </div>
+        </section>
+      </section>
 
-      <section className="absolute bottom-0 left-0 right-0 grid max-h-[42vh] gap-3 overflow-y-auto p-4 sm:max-h-none sm:grid-cols-2 sm:overflow-visible sm:p-6 lg:grid-cols-4">
-        {/* TODO: creare un'animazione per i riquadri in basso in modo che si vedano anche i post meno recenti */}
-        {POSTS.slice(0, 4).map((post) => (
-          <a
-            key={post.slug}
-            href={`#/blog/${post.slug}`}
-            className="glass-card flex min-h-24 items-stretch gap-3 p-3 text-white no-underline"
-          >
-            <div
-              className="h-[72px] w-[72px] flex-shrink-0 overflow-hidden"
-              style={{ background: post.accent }}
-            >
-              <Thumb type={post.thumb} image={post.image} imagePosition={post.imagePosition} imageScale={post.imageScale} />
-            </div>
-            <div className="font-display flex min-w-0 flex-1 flex-col justify-between">
-              <div className="truncate whitespace-nowrap text-base leading-tight drop-shadow">
-                {post.title}
-              </div>
-              <div className="flex justify-between gap-2 text-[13px] opacity-85">
-                <span>LEGGI &rarr;</span>
-                <span>{fmtDate(post.date)}</span>
-              </div>
-            </div>
-          </a>
-        ))}
+      <section ref={contactsRef} className="contacts-section relative bg-[var(--ink)] px-4 py-10 text-white sm:px-9 sm:py-12">
+        <div className="mx-auto flex max-w-[980px] flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="contacts-title font-display mb-1 text-[clamp(30px,9vw,40px)] leading-none">Contatti</h2>
+            <p className="contacts-desc max-w-xl text-[13px] leading-relaxed text-white/70">
+              mi trovi qui, senza moduli e senza passaggi intermedi.
+            </p>
+          </div>
+          <div className="contacts-icons flex flex-wrap items-center gap-3 sm:justify-end">
+            {[
+              ["Instagram", "https://instagram.com/frank_pw", "fa-brands fa-instagram"],
+              ["X", "https://x.com/frank_pw", "fa-brands fa-x-twitter"],
+              ["Facebook", "https://facebook.com/frank_pw", "fa-brands fa-facebook"],
+              ["Threads", "https://threads.net/@frank_pw", "fa-brands fa-threads"],
+              ["Telegram", "https://t.me/frank_pw1", "fa-brands fa-telegram"],
+            ].map(([label, url, icon]) => (
+              <a
+                key={label}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-btn flex h-9 w-9 items-center justify-center border border-white/25 text-white no-underline"
+                aria-label={label}
+              >
+                <i className={`${icon} text-[17px]`} />
+              </a>
+            ))}
+          </div>
+        </div>
       </section>
     </main>
   );
@@ -537,7 +558,7 @@ function PostRow({ post, index, href }) {
           <div className="mb-1 text-[11px] text-[var(--muted)]">
             {fmtDate(post.date)} · <span style={{ color: tagColor(post.tag) }}>{post.tag}</span>
           </div>
-          <h2 className="font-display mb-1 text-xl leading-tight">{post.title}</h2>
+          <h2 className="font-display mb-1 text-[clamp(19px,6vw,24px)] leading-tight">{post.title}</h2>
           <p className="line-clamp-2 text-[13px] leading-relaxed text-[var(--body)]">{post.excerpt}</p>
         </div>
       </div>
@@ -551,7 +572,7 @@ function PostRow({ post, index, href }) {
           <div className="mt-1 lowercase" style={{ color: tagColor(post.tag) }}>// {post.tag}</div>
         </div>
         <div>
-          <h2 className="font-display mb-2 text-3xl leading-none">{post.title}</h2>
+          <h2 className="font-display mb-2 text-3xl leading-tight">{post.title}</h2>
           <p className="max-w-xl text-sm leading-relaxed text-[var(--body)]">{post.excerpt}</p>
         </div>
         <div className="font-display pt-2 text-right text-sm">LEGGI &rarr;</div>
@@ -567,13 +588,13 @@ function BlogList() {
   const filtered = selectedTag ? POSTS.filter((p) => p.tag === selectedTag) : POSTS;
 
   return (
-    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[145px] sm:pt-[110px]">
-      <div className="mx-auto max-w-[980px] px-6 pb-28 sm:px-9">
+    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[132px] sm:pt-[110px]">
+      <div className="mx-auto max-w-[980px] px-4 pb-24 sm:px-9 sm:pb-28">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h1 className="font-display mb-2 text-[56px] leading-none">Blog</h1>
-            <p className="mb-14 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
-              appunti scritti dentro e fuori dall'ospedale.<br />
+            <h1 className="font-display mb-2 text-[clamp(42px,14vw,56px)] leading-none">Blog</h1>
+            <p className="mb-10 max-w-xl text-sm leading-relaxed text-[var(--muted)] sm:mb-14">
+              appunti scritti dentro e fuori dall'ospedale.<br className="hidden sm:block" />
               niente schema. l'ordine è quando li ho scritti, non quando sono successi.
             </p>
           </div>
@@ -616,13 +637,13 @@ function Argomenti() {
   const filtered = selectedTag ? ARGOMENTI_POSTS.filter((p) => p.tag === selectedTag) : ARGOMENTI_POSTS;
 
   return (
-    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[145px] sm:pt-[110px]">
-      <div className="mx-auto max-w-[980px] px-6 pb-28 sm:px-9">
+    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[132px] sm:pt-[110px]">
+      <div className="mx-auto max-w-[980px] px-4 pb-24 sm:px-9 sm:pb-28">
         <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h1 className="font-display mb-2 text-[56px] leading-none">Argomenti</h1>
-            <p className="mb-14 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
-              una sezione separata dal blog, pronta per articoli dedicati.<br />
+            <h1 className="font-display mb-2 text-[clamp(40px,13vw,56px)] leading-none">Argomenti</h1>
+            <p className="mb-10 max-w-xl text-sm leading-relaxed text-[var(--muted)] sm:mb-14">
+              una sezione separata dal blog, pronta per articoli dedicati.<br className="hidden sm:block" />
               stesso impianto, contenuti diversi.
             </p>
           </div>
@@ -676,26 +697,26 @@ function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti
   const next = posts[index - 1];
 
   return (
-    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[145px] sm:pt-[110px]">
-      <article className="mx-auto max-w-3xl px-6 pb-28 sm:px-9">
-        <a href={basePath} className="mb-10 inline-block text-[13px] text-[var(--muted)] no-underline">
+    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[132px] sm:pt-[110px]">
+      <article className="mx-auto max-w-3xl px-4 pb-24 sm:px-9 sm:pb-28">
+        <a href={basePath} className="mb-8 inline-block text-[13px] text-[var(--muted)] no-underline sm:mb-10">
           &larr; {backLabel}
         </a>
 
-        <div className="mb-5 flex items-center gap-4 text-[13px]">
+        <div className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px]">
           <span className="text-[var(--muted)]">{fmtDate(post.date)}</span>
           <span className="lowercase" style={{ color: tagColor(post.tag) }}>
             // {post.tag}
           </span>
         </div>
 
-        <h1 className="font-display mb-10 text-[clamp(28px,6vw,56px)] leading-tight">{post.title}</h1>
+        <h1 className="font-display mb-8 [overflow-wrap:anywhere] text-[clamp(32px,10vw,56px)] leading-tight sm:mb-10">{post.title}</h1>
 
-        <div className="text-[15px] leading-7 text-[var(--body)]">
+        <div className="text-[15px] leading-7 text-[var(--body)] sm:text-base sm:leading-8">
           {post.body.map((paragraph, i) => {
             if (paragraph.startsWith("## ")) {
               return (
-                <h2 key={i} className="font-display mb-4 mt-10 text-[28px] leading-tight text-[var(--ink)]">
+                <h2 key={i} className="font-display mb-4 mt-10 text-[clamp(24px,7vw,28px)] leading-tight text-[var(--ink)]">
                   {paragraph.replace(/^##\s+/, "")}
                 </h2>
               );
@@ -703,7 +724,7 @@ function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti
 
             if (i === 0 && paragraph.startsWith("«")) {
               return (
-                <blockquote key={i} className="mb-8 border-l-2 border-[var(--poppy)] pl-5 text-xl leading-relaxed text-[var(--ink)]">
+                <blockquote key={i} className="mb-8 border-l-2 border-[var(--poppy)] pl-4 text-lg leading-relaxed text-[var(--ink)] sm:pl-5 sm:text-xl">
                   <p className="mb-3">{paragraph}</p>
                   {post.body[i + 1] && <cite className="block text-sm not-italic text-[var(--muted)]">{post.body[i + 1]}</cite>}
                 </blockquote>
@@ -718,7 +739,7 @@ function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti
 
         <div className="mt-14 border-t border-dashed border-[var(--line)] pt-6 text-[15px]">Francesco</div>
 
-        <nav className="mt-16 grid gap-4 sm:grid-cols-2">
+        <nav className="mt-14 grid gap-4 sm:mt-16 sm:grid-cols-2">
           <div>
             {prev && <PostNav post={prev} label="← post precedente" basePath={basePath} />}
           </div>
@@ -733,18 +754,18 @@ function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti
 
 function PostNav({ post, label, align = "left", basePath = "#/blog" }) {
   return (
-    <a href={`${basePath}/${post.slug}`} className={`block border border-[var(--line)] p-5 text-[var(--ink)] no-underline ${align === "right" ? "text-right" : ""}`}>
+    <a href={`${basePath}/${post.slug}`} className={`block border border-[var(--line)] p-4 text-[var(--ink)] no-underline sm:p-5 ${align === "right" ? "sm:text-right" : ""}`}>
       <div className="mb-2 text-xs text-[var(--muted)]">{label}</div>
-      <div className="font-display truncate whitespace-nowrap text-xl leading-tight">{post.title}</div>
+      <div className="font-display line-clamp-2 text-xl leading-tight sm:line-clamp-none sm:truncate sm:whitespace-nowrap">{post.title}</div>
     </a>
   );
 }
 
 function ChiSono() {
   return (
-    <main className="page-fade min-h-screen bg-[var(--paper-2)] pt-[145px] sm:pt-[110px]">
+    <main className="page-fade min-h-screen bg-[var(--paper-2)] pt-[132px] sm:pt-[110px]">
       <div className="mx-auto grid max-w-[1400px] lg:min-h-[calc(100vh-110px)] lg:grid-cols-2">
-        <section className="px-6 py-14 sm:px-14 sm:py-16">
+        <section className="px-4 py-12 sm:px-14 sm:py-16">
           <div className="max-w-[480px] space-y-5 text-[15px] leading-8">
             <h1 className="font-display mb-8 text-[clamp(36px,8vw,56px)] leading-none">
               Chi Sono
@@ -762,7 +783,7 @@ function ChiSono() {
             
           </div>
         </section>
-        <section className="relative min-h-[420px] overflow-hidden bg-[var(--slate)]">
+        <section className="relative min-h-[320px] overflow-hidden bg-[var(--slate)] sm:min-h-[420px]">
           <img
             className="hero-image absolute inset-0 h-full w-full object-cover"
             src={heroPoppies}
@@ -786,11 +807,11 @@ function Contact() {
   };
 
   return (
-    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[145px] sm:pt-[110px]">
-      <div className="mx-auto max-w-3xl px-6 pb-28 sm:px-9">
-        <h1 className="font-display mb-2 text-[56px] leading-none">Contact</h1>
-        <p className="mb-12 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
-          se mi vuoi scrivere due righe - anche solo per dire ciao - questo è il posto.<br />
+    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[132px] sm:pt-[110px]">
+      <div className="mx-auto max-w-3xl px-4 pb-24 sm:px-9 sm:pb-28">
+        <h1 className="font-display mb-2 text-[clamp(40px,13vw,56px)] leading-none">Contact</h1>
+        <p className="mb-10 max-w-xl text-sm leading-relaxed text-[var(--muted)] sm:mb-12">
+          se mi vuoi scrivere due righe - anche solo per dire ciao - questo è il posto.<br className="hidden sm:block" />
           rispondo a tutti, alla mia velocità, di solito entro qualche giorno.
         </p>
 
@@ -806,8 +827,8 @@ function Contact() {
               <textarea className="field" value={msg} onChange={(e) => setMsg(e.target.value)} placeholder="anche una riga sola va bene" rows="6" required />
             </FormField>
             <div className="mt-3 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-              <div className="text-[13px] text-[var(--muted)]">oppure: ciao@unavoltavevolabarba.it</div>
-              <button className="font-display bg-[var(--ink)] px-7 py-3 text-lg text-white" type="submit">
+              <div className="break-all text-[13px] text-[var(--muted)]">oppure: ciao@unavoltavevolabarba.it</div>
+              <button className="font-display w-full bg-[var(--ink)] px-7 py-3 text-lg text-white sm:w-auto" type="submit">
                 INVIA &rarr;
               </button>
             </div>
