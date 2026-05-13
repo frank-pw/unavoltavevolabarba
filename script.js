@@ -13,7 +13,16 @@ const COLORS = {
   body: "var(--body)"
 };
 
-function Thumb({ type }) {
+function Thumb({ type, image, imagePosition, imageScale }) {
+  if (image) {
+    const scale = imageScale || 1;
+    const pct = `${(100 / scale).toFixed(2)}%`;
+    return (
+      <div style={{ width: "100%", height: "100%", position: "relative", overflow: "hidden" }}>
+        <img src={image} alt="" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: pct, height: pct, objectFit: "cover", objectPosition: imagePosition || "center center", display: "block" }} />
+      </div>
+    );
+  }
   if (type === "diagnosi") {
     return (
       <svg viewBox="0 0 80 56" preserveAspectRatio="xMidYMid slice">
@@ -83,89 +92,296 @@ function Thumb({ type }) {
 
 const POSTS = [
   {
-    slug: "papaveri",
-    date: "2026-05-08",
-    title: "Papaveri",
-    excerpt: "Sono uscito dall'ospedale in primavera. Il primo posto dove sono andato è questo campo. Non c'erano ancora le foto, c'ero solo io e tutto questo rosso.",
-    tag: "fuori",
+    slug: "un-giorno-qualunque-parte-1",
+    date: "2024-11-14",
+    title: "Un giorno qualunque (Parte 1)",
+    excerpt: "Quel sabato per me era un sabato qualunque, un giorno qualunque o così credevo.",
+    tag: "dentro",
     accent: "var(--orange)",
     thumb: "papaveri",
+    image: "lancia.png",
     body: [
-      "Sono uscito dall'ospedale il 30 aprile. Avevo in tasca le chiavi di casa, una scatola di compresse, e un foglio piegato male con su scritto cosa devo mangiare e cosa no.",
-      "Mio fratello mi ha chiesto dove volevo andare. Mi aspettavo di rispondere a casa. Invece mi è uscito: portami in mezzo a qualcosa di vivo.",
-      "Abbiamo guidato fino a un campo che conoscevo da bambino. Era esploso di papaveri, di quel rosso che non riesco a guardare in foto senza pensare che qualcuno l'abbia ritoccato.",
-      "Sono sceso dalla macchina. Ho aperto le braccia. Non perché volessi fare la foto - quella è venuta dopo - ma perché il petto mi tirava a stare così.",
-      "Mi sono accorto che era la prima volta in mesi che respiravo davvero a fondo senza che mi facesse paura."
+      "«Ricordate i poster con la frase “Oggi è il primo giorno del resto della tua vita”? È vero per tutti i giorni tranne uno: il giorno della tua morte!»",
+      "Lester Burnham",
+      "Quel sabato per me era un sabato qualunque, un giorno qualunque o così credevo, ero completamente ignaro che da lì a qualche ora, quel sabato sarebbe diventato il primo giorno del resto della mia vita.",
+      "Era giugno, l'estate stava per cominciare e io non sono un grande fan dell'estate ma ero comunque pronto a prendere tutto ciò che aveva da offrirmi.",
+      "La giornata era iniziata perfettamente. Sveglia presto ma non troppo, le mattine preferivo essere attivo anziché passarle a letto. Feci una buona colazione, una buona colazione per me consisteva nell'andare nel solito bar di fiducia e fare il tris: Bombolone con la crema, Cappuccino Bollente, Sigaretta.",
+      "Lo standard, che vi aspettavate?",
+      "Dopo la routine della colazione del sabato andai in fumetteria dove il titolare vestito quasi da Dragon Ball, dopo avermi offerto il caffè e una bella chiacchierata mi consegnò i numeri usciti in settimana: «Francesco! Ecco i tuoi fumetti» disse come ogni settimana!",
+      "Prossima tappa era il centro commerciale, lungo giro, guardavo ogni vetrina, ogni negozio e mentalmente preparavo le prossime cose da fare all'interno di quel via vai di persone. Prima di fare la spesa mi fermavo sempre sullo stesso ristorante, si spendeva un po' di più ma era il più buono e salutare e io ci tenevo. Avevo fatto amicizia con cuochi e camerieri e nei piatti venivo coccolato fino al momento di pagare, salutare e tornare alle mie mansioni, spesa per tutta la settimana, rifornimento tabacco cartine e filtri e poi dritto a casa.",
+      "Una volta tornato a casa era il momento del caffè.",
+      "Preparare il caffè richiede il suo tempo, richiede calma perché per me è come un rituale. Tutto inizia dall'apertura del barattolo, mentre svito il tappo ogni pensiero scompare e avvicino lentamente il barattolo al naso per assaporarne l'aroma. Tutte le volte che lo faccio automaticamente nel viso mi si stampa un sorriso. Mentre preparavo la Moka i miei movimenti erano accompagnati dalla musica dei Creedence Clearwater Revival, mi sedetti sul divano e mi gustai la mia tazzina fumante di caffè e poco dopo mi rollai una sigaretta canticchiando Fortunate Son.",
+      "Iniziai a controllare i manga che avevo acquistato il mattino e passai un'ora a leggere One Punch Man.",
+      "Era ora di uscire e incontrarsi con la mia compagna, in quel periodo ancora non convivevamo, dopo un pomeriggio di passeggiate girando per negozi andammo a cena in un bellissimo pub all'aperto. I tavoli erano distanti tra loro quindi non ci si dava fastidio a vicenda, l'aria del mare risaliva e veniva a salutarci dato che era neanche a venti metri da noi. Ordinammo una porzione di Jalapeños fritti, due hamburger e due birre. Dopo cena passeggiata, sì, eravamo grandi passeggiatori.",
+      "Ci ritrovammo seduti su una panchina a programmare le cose che avremmo voluto fare, dalle più fattibili alle più “mettiamo in programma”. Volevamo andare a Firenze, a Roma per poi uscire dall'Italia e andare a vedere la bellezza di Edimburgo fino ad arrivare alle mete più lontane e difficili: il Giappone e la Nuova Zelanda.",
+      "La notte di quel tredici giugno mi svegliai alle due con un forte dolore alla schiena. Capii subito che non sarebbe bastato un oki per farmelo passare, la mia compagna non c'era, decisi di prendere la macchina e di andare al pronto soccorso.",
+      "Urlavo dal dolore alla schiena, analisi del sangue, antidolorifico, ancora antidolorifico, più antidolorifico per favore, responso analisi: Leucemia."
     ]
   },
   {
-    slug: "il-giorno-della-diagnosi",
-    date: "2025-11-12",
-    title: "Il giorno della diagnosi",
-    excerpt: "Era un martedì. Mi ricordo perché avevo in agenda \"comprare il caffè\" e non l'ho comprato.",
+    slug: "settantadue-ore-parte-2",
+    date: "2024-11-23",
+    title: "Settantadue ore (Parte 2)",
+    excerpt: "Mi ritrovai ricoverato e tutto ciò che ricordo era l’infermiera che mi somministrava la morfina.",
+    tag: "dentro",
+    accent: "var(--orange)",
+    thumb: "macchina",
+    image: "chemio.png",
+    body: [
+      "Settantadue ore.",
+      "Io non sapevo nulla.",
+      "Mi ritrovai ricoverato e tutto ciò che ricordo era l’infermiera che mi somministrava la morfina e io con gli occhi semichiusi sentivo dirmi: «...». Erano delle pillole rosse e nere almeno da quel che ricordo. Un giorno fui svegliato dalle infermiere che parlavano, io sentivo rumore, la dottoressa dava disposizioni, poi percepii quattro mani che mi afferravano e mi posizionavano lungo, a pancia in giù. Non sapevo neanche se tutto questo fosse reale, una fitta dietro la schiena mi risvegliò per un attimo dal torpore, il rumore si era trasformato in dolore, sentivo parlare ma non capivo una singola parola di quello che veniva detto.",
+      "«Cosa state facendo alla mia schiena?»",
+      "Giorni dopo capii che avevo fatto il mio primo prelievo aspirato del midollo e biopsia ossea.",
+      "Con una siringa ti fanno l’anestesia, poi ti inseriscono un ago che arriva fino al midollo. Arriva la parte dove con uno strumento medico la dottoressa torna a bucarti ma questa volta è più uno scavare, arrivano fino all’osso e ne prelevano una piccola parte.",
+      "Mi è stato detto che questo è stato il racconto delle prime settantadue ore, dove io la maggior parte le ho passate a dormire mentre la mia famiglia aspettava che passassero perché a detta dei medici avrei potuto non superarle.",
+      "Dopo i tre giorni fui spostato e mi ritrovai in una stanza a due letti, ero confuso, spaesato, arrabbiato, mi sentivo intrappolato. Da solo in quella stanza cercavo solo di far passare il tempo ma non passava. “Il tempo è amico di chi lo rispetta” scrive Gianluca Gotto in “Profondo come il mare leggero come il cielo” ma io ancora non lo sapevo.",
+      "Una mattina entrò il primario, mi disse che sarei dovuto restare in ospedale sei mesi. Alle parole sei mesi mi sentii demolito. La mia mente non poteva credere a quelle parole. Rinchiuso e gettato in una gabbia cercavo di capire, di venirne a capo. Ieri ero al lungomare a passeggiare e ora sono dentro una stanza d’ospedale con una malattia terribile.",
+      "Le dottoresse man mano che i giorni passavano entravano nella mia stanza ogni giorno, la dottoressa che scoprì che ero malato di leucemia era il mio solo punto di riferimento fin quando non conobbi meglio il resto dello staff e infermiere e dottoresse riuscirono a farmi sentire meglio.",
+      "Mi dissero che avrei dovuto fare chemioterapia e che appena mi sarebbe passato il riversamento nei polmoni sarei stato trasferito in una stanza bassa carica microbica (BCM).",
+      "Elaborai e mi feci forza. Scoprii la potente “arma” della consapevolezza e accettai il tutto. Questa sarebbe stata la mia vita per un po’, tanto vale non remarle contro.",
+      "Una delle dottoresse entrò nella mia stanza per dirmi che mi avrebbero affiancato un altro paziente ma io la presi male, ero convinto che da solo sarei stato più forte, invece grazie a L. lo scorrere del tempo era più piacevole.",
+      "L. era più grande di me di cinque anni, si presentò sorridendo dicendomi che era al decimo giorno post chemio, gli avevano cambiato stanza, da lì a qualche giorno saremmo stati spostati entrambi sull’unica stanza BCM doppia. Ebbi tempo di parlare con lui, avevamo la stessa malattia, dovevamo fare esattamente le stesse cure, il protocollo di Roma lo chiamavano. Lo presi come esempio, mi faceva sentire meno solo.",
+      "Nella stanza BCM doppia non si stava male, imparai ad apprezzare le piccole cose, quel trasferimento lo avevo preso come un evento positivo, potevo essere felice.",
+      "Passavamo, le giornate a chiacchierare e a guardare la TV. Arrivò il giorno in cui dovevo iniziare la chemioterapia, mi domandavo «Proprio a me?». Erano cose che leggevi sul giornale, di sfuggita su internet e in TV, non avrei mai immaginato che un giorno sarebbe capitato proprio a me. L. era ormai un amico, un punto di forza, si parlava del più e del meno e di svariati argomenti, insieme affrontavamo la malattia, le cure, la nausea che fare la chemio comportava, il pessimo cibo dell’ospedale, il fatto che eravamo malati. Le chemioterapie mi diedero febbre oltre i trentotto, ogni giorno febbre, flebo, pillole, il senso del gusto se ne andò la febbre no. Non sono mai stato tollerante verso la febbre, basta poco sopra i trentasette per mettermi KO. Dopo tre settimane con la temperatura costante sopra i trentotto decisero di somministrarmi il cortisone. Finalmente avevo ore in cui potevo ascoltare la musica o leggere qualche libro. Il cortisone aveva i suoi effetti, febbre giù, effetto caffeina e tante, tante sudate.",
+      "Erano ormai quasi cinquanta giorni che ero chiuso in BCM, dopo aver fatto il mio primo ciclo di chemioterapia i valori del sangue scendevano e il sistema immunitario veniva pesantemente abbassato. Avevo capito che dovevo aspettare circa tre settimane prima che i valori sarebbero tornati a un valore sufficiente per uscire un po’ dalla stanza e magari qualche giorno dopo tornare a casa per essere poi ricoverati di nuovo quando sarebbe stato il momento del secondo ciclo di chemio.",
+      "Infatti, essendo dieci giorni avanti L. era tornato a casa, ero rimasto da solo con la febbre e il cortisone.",
+      "Dopo circa cinquanta giorni implorai di poter tornare a casa anche io ma la febbre me lo impediva. Mi sentivo di nuovo imprigionato, la mia mente cambiò di nuovo il modo di approccio. Arrivò il primario insieme ad una dottoressa, nel mentre in quei cinquanta giorni avevo fatto altri prelievi del midollo ma stavolta ero sveglio e vigile, dai risultati di quei prelievi mi fu detto che il midollo non funzionava come avrebbe dovuto, per poi essere smentito il giorno dopo.",
+      "Paura.",
+      "Ci avevo capito poco ma ebbi paura della malattia per la prima volta, ingenuamente e da una parte fortunatamente avevo impostato un timer nel cervello, come se dopo sei mesi avrei scontato la pena e sarei potuto tornare alla mia vita normale.",
+      "Dopo quattro giorni a casa, un ciambellone da mangiare e una pizza, dovevo già essere ricoverato di nuovo per fare il secondo ciclo di chemioterapia, tornai dentro la stanza doppia e dentro ci trovai L., ero molto felice di vederlo, mi sbrigai a mettere le mie cose nell’armadietto per tornare allo stato di ricoverato in ospedale, il secondo ricovero tornai armato di più passatempi che tra visite, controlli, L. che mi aggiornava sulla sua situazione, le ore scorrevano con me nella giornata fin quando la terapia mi riportò la febbre. L. vomitava e io avevo questa tortura della febbre e insieme facendoci forza e coraggio a vicenda di nuovo giorno dopo giorno affrontavamo tutto insieme.",
+      "Eravamo arrivati ad agosto, controllavo il mio timer nel cervello di tanto in tanto.",
+      "Un giorno L. fu portato in sala operatoria e tornò in stanza con un CVC al collo, un accesso a doppia via, un tubo fastidioso a detta di L. Qualche giorno dopo fu portato in un altro ospedale per la raccolta di cellule staminali, questo tubo serviva a questo e ad altre cose che la mia mente ha rimosso. Sapevo che da lì a qualche giorno mi sarebbe toccato lo stesso percorso. Finii in un altro ospedale per cinque ore attaccato ad una macchina che mi estraeva le cellule staminali che poi avrei reinfuso giorni dopo. Trapianto autologo.",
+      "Così fu. L. come il ricovero precedente era tornato a casa prima di me, a settembre tornai a casa anche io per tre settimane. Pizza a volontà.",
+      "Ad ottobre fui richiamato per il terzo ricovero, il timer nel mio cervello era quasi arrivato alla sua fine. Questa volta ero stato ricoverato prima io di L. e fui sistemato in una stanza BCM singola.",
+      "Dopo qualche giorno, iniziai il terzo ciclo di chemio, ormai le infermiere e le dottoresse erano amiche, splendide persone che avevo vicine ogni giorno insieme alle costanti visite della mia compagna e della mia famiglia mi sentivo forte, pronto ad affrontare tutto come un toro in corsa. Così feci, chemio pre-trapianto e reinfusione di cellule staminali. Nel mentre L. era stato ricoverato in una stanza singola BCM anche lui. Ci tenevamo frequentemente in contatto, ci dissero che da lì a qualche giorno saremmo di nuovo tornati nella nostra stanza BCM doppia.",
+      "Il trapianto autologo mi fece star male febbre e intestino impazziti, il purificatore sopra al letto mi sputava il getto d’aria fredda in faccia, mi sembrava di impazzire finché le cose non iniziarono a stabilizzarsi, tornai nella doppia insieme a L.; era novembre, sarei tornato a casa da lì a qualche giorno. Non mi sentivo più malato, nonostante il mio corpo dicesse il contrario, avevo perso la mia barba, i capelli erano già rasati e non c’era nulla che potesse cadere. Il mio corpo era privo di peluria, il mio colorito era cambiato il mio corpo era cambiato e da lì iniziai a fare i conti con i cambiamenti.",
+      "Tornai a casa ad inizio novembre, prima di andarmene abbracciai forte L. con la promessa di andarci a mangiare qualcosa insieme non appena anche lui fosse uscito.",
+      "Nonostante controlli, analisi del sangue e visite potevo pian piano tornare ad una vita quasi normale. La mia compagna si trasferì da me, imparai a vedere il lato positivo in ogni cosa, avevo la leucemia, mi aveva portato via tante cose ma aveva fatto venire la mia compagna a vivere con me, ero stanco ma contento e facevo i miei controlli, acquistai uno strumento musicale, suonavo, leggevo e giocavo con i videogiochi. Debole ma felice.",
+      "L. poco dopo il mio ritorno a casa fu trasferito in un altro ospedale per altre cure. I mesi passavano e io pian piano recuperavo, L. da qualche giorno rispondeva ai miei messaggi sempre più di raro, arrivò febbraio, io stavo recuperando, L. morì."
+    ]
+  },
+  {
+    slug: "l-anno-piu-bello-della-mia-vita-parte-3",
+    date: "2025-02-20",
+    title: "L'anno più bello della mia vita (Parte 3)",
+    excerpt: "Il 2022 era appena iniziato. Dopo Natale e Capodanno vivevo la mia vita insieme alla mia compagna.",
+    tag: "dentro",
+    accent: "var(--mint)",
+    thumb: "papaveri",
+    image: "offagna.png",
+    body: [
+      "Il 2022 era appena iniziato. Dopo aver trascorso un Natale e un Capodanno sereni, vivevo la mia vita insieme alla mia compagna, che nel frattempo si era trasferita a casa mia. Suonavo i miei strumenti musicali, giocavo ai videogiochi, leggevo libri e, ovviamente, ascoltavo musica. Facevo regolarmente controlli e visite in ospedale: analisi del sangue a domicilio, visite settimanali e prelievi del midollo a cadenza mensile, che poi sarebbero diventati trimestrali. Pensavo solo a restare tranquillo. Onestamente, credo che senza di lei non ce l’avrei mai fatta ad affrontare la convalescenza.",
+      "Uscivo poco. Tra il Covid che circolava e il freddo, mi rintanavo in casa, al caldo. Di tanto in tanto, nei giorni feriali e di prima mattina, andavamo a passeggiare al centro commerciale; se c’era il sole, ci limitavamo alla stradina sotto casa. Era meraviglioso sentire il calore della luce sul viso. Seguivo la dieta con tutte le restrizioni del caso: niente cibi crudi, verdure solo surgelate, quelle fresche avrei dovuto lavarle con l’Amuchina, col rischio di rovinarne il sapore. Mi nutrivo di pizza surgelata, Sofficini, minestroni pronti. Era limitante, ma non mi importava: ero felice di aver fatto il trapianto autologo e mi godevo la vita giorno per giorno. Avevo perso il senso del gusto per via di una pillola di mantenimento che dovevo prendere quotidianamente per tenere a bada la malattia che avevo sconfitto, ma nonostante questo tornai a giocare online con i miei amici e a comprare vestiti per prepararmi alla primavera e all’estate.",
+      "Arrivò la primavera. Le passeggiate aumentavano, il mio corpo rispondeva e mi sentivo sempre meglio. I muscoli delle gambe si rigeneravano. Ero senza barba, cosa che mi pesava: l’ho sempre adorata e mi piaceva prendermene cura. Mi mancava, ma con pazienza aspettavo che ricrescesse. Il mio corpo era cambiato: niente peluria, unghie delle mani fragili e spezzate. Mi era difficile abituarmi a quelle trasformazioni. La parte migliore, però, doveva ancora arrivare.",
+      "Maggio. Ero debole e spesso stanco, ma nel complesso stavo bene. Gli esami confermavano che il midollo funzionava e l’emocromo era buono. La mia compagna, Francesca, mi propose di andare qualche giorno a Firenze per svagarci un po’. Suo fratello si era offerto di regalarci il viaggio. L’idea di girare per la città e rivedere i miei amici toscani mi attirava, ma titubavo: non mi sentivo pronto. Alla fine, la determinazione di Francesca ebbe la meglio e accettai.",
+      "Firenze era bellissima, come sempre. Rivedere l’Arno distendersi e far apparire Ponte Vecchio in lontananza è una magia che non mi stancherò mai di contemplare. Io e Francesca passeggiammo per la città: Piazza della Signoria, Ponte Vecchio e altri luoghi che Leonardo ci fece visitare. Andammo a cena da Diego: ricordo ancora il sapore della pappa al pomodoro di quella sera. Il giorno dopo incontrai Simone e Mattia, venuti apposta per salutarmi. Ero felice, anche quando, a malincuore, lasciammo Firenze per tornare a casa.",
+      "In un paesino non molto lontano da casa, ogni estate a luglio si svolgono le feste medievali. Francesca, che realizza gioielli fatti a mano, mi propose di esporre la sua bancarella. Io, come al solito, protestai: «Non so se ce la faccio… ho paura di stancarmi.» Ma, come per Firenze, la sua determinazione mi convinse.",
+      "Luglio. Indossavo i miei adorati harem pants, una t-shirt, e mi godevo la vita giorno per giorno. Senza barba, con qualche acciacco fisico, ma felice. Arrivò il giorno delle feste medievali. Presi Francesca con l’auto già caricata da lei con tutto l’occorrente e raggiungemmo il borgo di Offagna. Montammo la bancarella: il tavolo, il telo nero per coprirlo e i gioielli. Io mi occupavo delle luci, che sistemavo su piccoli tronchi di legno, mentre lei disponeva con cura ciondoli, anelli e bracciali. Erano circa le quattro del pomeriggio. Una musica medievale si diffondeva dalle casse appese ai muri della città. L’aria era piena di profumi: arrosti, spezie, incenso. Tutte le bancarelle erano pronte; la festa stava per iniziare e sarebbe durata una settimana.",
+      "Mi allontanai per curiosare tra le altre bancarelle. In un vicolo pieno di luci e costumi medievali, conobbi Dino: un uomo sulla settantina che, dopo aver elogiato i gioielli di Francesca, iniziò a parlare con la naturalezza di chi ti conosce da vent’anni. In pochi minuti ci aveva già donato simpatia e affetto. Ci regalò alcuni oggetti e ci parlò del suo amore per l’India, dove trascorreva lunghi periodi, era affascinato dalla figura di Ganesh e ci raccontò la sua storia. Quella sera nacque una splendida amicizia che ancora oggi ci accompagna.",
+      "Tra le vie del borgo, un giullare con accento spagnolo attirava l’attenzione. Quando lo avvicinai, confessò di venire da Madrid, ci avevo azzeccato. Iniziai a dargli una mano ad attirare pubblico per i suoi spettacoli fatti di musica, fuoco e risate. Ci sentivamo due giullari di strada: il mondo era un palcoscenico e noi non potevamo far altro che improvvisare.",
+      "Verso metà settimana, la piazza accanto alla nostra bancarella si riempì. Dall’alto della scalinata comparvero i Daridel: cornamuse, ghironda e tamburi che intonavano melodie celtiche. Erano a pochi passi da me: sentirli suonare da così vicino fu magico. Quella musica entrò a far parte di me, un nuovo genere da alternare al mio amato heavy metal.",
+      "La settimana delle feste volò via troppo in fretta, si sa, il tempo accelera quando stai bene.",
+      "Il resto dell’estate trascorse tra gite e altre città. Francesca mi regalò un paio di pantaloni e una camicia tibetana: pantaloni color borgogna, camicia bianco panna. Ancora oggi, non appena le temperature salgono, non perdo occasione per indossarli.",
+      "L’autunno arrivò dolce e colorato. Ripensavo al viaggio a Firenze, alle feste medievali, alle passeggiate. La malattia mi aveva tolto tanto, ma mi aveva anche insegnato a vedere. Anche un fiore sembrava diverso. In ospedale avevo fissato i muri per mesi, imparando a osservare dettagli che prima ignoravo, persino per strada.",
+      "Ero cambiato. La mia mente era cambiata.",
+      "Gli ultimi mesi dell’anno passarono sereni. A settembre andammo a una festa celtica in Abruzzo: musica dal vivo, cibo, artisti, bancarelle. Ci perdemmo tra le note e i profumi, assaporando quell’atmosfera inebriante.",
+      "Di nuovo Natale. E arrivò il 2023."
+    ]
+  },
+  {
+    slug: "ricominciamo-parte-4",
+    date: "2025-05-03",
+    title: "Ricominciamo (Parte 4)",
+    excerpt: "Il 2023 era iniziato bene, vivevo la mia conquistata serenità apparente.",
     tag: "dentro",
     accent: "var(--slate)",
     thumb: "diagnosi",
+    image: "stanza.png",
     body: [
-      "Era un martedì. Mi ricordo perché avevo in agenda \"comprare il caffè\" e non l'ho comprato.",
-      "L'ematologa mi ha detto la parola e poi è rimasta zitta. Per dare tempo a me, immagino. Io ho dato tempo a lei. Per un attimo l'ho guardata come si guarda qualcuno che ha sbagliato strada.",
-      "Poi mi ha spiegato. Acuta. Linfoblastica. Si cura. Si può curare. Ha detto più volte si cura prima di dirmi quanto sarebbe stato lungo.",
-      "Sono uscito, ho ripreso la macchina, e per due ore ho guidato senza una meta. Non ho pianto. Ho fatto la spesa. Mi sono accorto a casa che non avevo comprato il caffè.",
-      "Quella sera ho scritto la prima riga di quello che adesso è questo blog. Non sapevo ancora che sarebbe diventato un blog. Sapevo solo che dovevo scrivere qualcosa, altrimenti la testa mi si rompeva."
+      "Il 2023 era iniziato bene, vivevo la mia conquistata serenità apparente. Man mano che l’estate si avvicinava, mi piaceva andare con Francesca in qualche negozio a comprare vestiti in vista della bella stagione. Le visite in ospedale erano sempre meno frequenti, e le analisi del sangue andavano bene.",
+      "Un giovedì di metà febbraio, verso le undici del mattino, ricevetti una telefonata dall’infermiera dell’ospedale: «La dottoressa vuole vederti, puoi passare verso le dodici e trenta.» «Certo!» risposi. Il mio presentimento, però, non era dei migliori.",
+      "Aspettai il mio turno nella sala d’attesa. «Vieni, Francesco.» Ciò che mi aspettava era terribile: «Purtroppo la malattia è tornata. Domani faremo una BOM per valutarne lo stato. Da lunedì inizierai una cura chemioterapica qui in Day Hospital per cercare di mandarla di nuovo in remissione.»",
+      "Mi tolsi occhiali e mascherina, li appoggiai sulla scrivania della dottoressa e, cambiando completamente espressione e respiro, rimasi senza parole. Mi sentivo distrutto, disorientato, disarmato. «Qui, purtroppo, non possiamo più fare nulla. Faremo la terapia che ti ho detto e sarai preso in carico dall’ospedale regionale di Ancona.» Quello dove erano morti mia madre e L.",
+      "Fui chiamato di nuovo a combattere la malattia, come se tutta la sofferenza del mondo mi si fosse riversata addosso come un fiume in piena. Ancora incredulo, guidavo verso casa: ogni curva sembrava un ostacolo, ogni semaforo rosso un invito a fermarmi a riflettere su ciò che avevo appena appreso. Ma la mia mente rifiutava il confronto, cercava solo la sicurezza familiare delle quattro mura.",
+      "Quando finalmente svoltai l’angolo e vidi la mia via, un senso di sollievo misto a crescente ansia mi avvolse. Parcheggiai distrattamente, nemmeno ricordando di aver spento il motore. Aprii la porta di casa e l’odore familiare mi colpì; ma anche quel profumo sembrava diverso, quasi come se la casa stessa sapesse del cambiamento. Non persi tempo a raccontare tutto a Francesca, che aveva già intuito.",
+      "Il lunedì successivo ero di nuovo in ospedale, mi fecero accomodare sulle poltrone per la terapia, mi inserirono l’ago e iniziai le cure: una settimana al mese, proseguendo poi con le pillole a casa.",
+      "Intorno all’anno 2009 ebbi dei problemi: smisi di suonare con la band musicale, abitudine che mi accompagnava costantemente da circa il 1997, persi il lavoro e in poco tempo mi ritrovai sperduto. Trovai conforto nei libri, dai classici ai romanzi più contemporanei.",
+      "Un giorno mi ricapitò tra le mani Siddharta di Hermann Hesse, un libro che avevo amato e che decisi di rileggere. Le pagine, già conosciute, mi sembrarono nuove, come se volessero comunicarmi qualcosa di potente, un aiuto nascosto da scoprire. Iniziai a informarmi sul Buddhismo, ne rimasi affascinato: nessun dogma, nessuna verità imposta, solo un invito a indagare la realtà per raggiungere pace e liberazione.",
+      "Lessi della vera storia di Siddharta Gautama: cresciuto tra palazzi dorati, aveva tutto, ma il padre gli aveva nascosto la sofferenza del mondo. Un giorno, curioso, uscì dal palazzo e vide un vecchio fragile, un uomo malato, un corteo funebre e un saggio sereno. Capì che ricchezza e piacere non proteggevano da vecchiaia, malattia e morte. Decise così di lasciare tutto per cercare la pace.",
+      "Vagò per anni come asceta, ma nemmeno quelle pratiche estreme lo portarono alla verità. Una notte, sotto un grande albero di fico, l’albero della Bodhi, Siddharta si sedette in meditazione. All’alba raggiunse il risveglio: comprese le leggi della vita, le cause della sofferenza e la via per superarla. Era diventato il Buddha, il “Risvegliato”. Da allora, viaggiò per insegnare a tutti, offrendo non un dogma, ma un sentiero verso la libertà interiore.",
+      "E io, in quel momento, ero decisamente in cerca di pace. Iniziai a divorare libri sull’argomento, praticare yoga e meditazione. Tutti e tre questi mondi si fusero, ascoltai esperienze altrui, incontrai maestri, meditavo.",
+      "All’inizio di marzo 2023, applicai uno degli insegnamenti del Buddhismo: la sofferenza può essere un punto di partenza. Affrontavo le chemio, leggevo, riposavo ed ero felice di avere Francesca accanto a me. Intanto, facevo visite all’ospedale di Ancona, incontravo medici, venivo preparato per un nuovo ricovero, altre chemio e il trapianto allogenico, quello da donatore.",
+      "Arrivò giugno: aspettavo di essere chiamato per il ricovero. Grazie al Buddhismo, mi ero rasserenato. Anche se tutto stava andando male, ero tranquillo, vivevo giorno per giorno, avevo imparato a non preoccuparmi di ciò che sarà e a concentrarmi su ciò che è. Non vivevo nel passato, perché pensarci porta solo tristezza o malinconia; né mi preoccupavo del futuro, che genera solo ansia. Lasciavo andare i pensieri senza cercare di sostituirli.",
+      "E in un batter d’occhio arrivò la telefonata: a metà luglio sarei stato ricoverato per il trapianto. Mi presentai puntuale nel reparto di ematologia di Ancona, feci tutte le procedure di ricovero e la nuova avventura ebbe inizio.",
+      "Il protocollo prevedeva un ciclo di chemio per “pulire” il midollo, poi, dopo circa un mese, un altro ciclo e infine il trapianto. I medici erano meravigliosi, proprio come quelli di Civitanova Marche, la mia città. La stanza BCM era diventata una cella d’isolamento. Fui travolto da nuova sofferenza, pensieri cupi, febbre, freddo, solitudine.",
+      "Per fortuna avevo accesso alle piattaforme di streaming, trovai il modo di far passare il tempo, sostenuto dal mio Buddhismo Zen e dall’amore di Francesca e della mia famiglia. Fui dimesso a settembre. Tornavo spesso in ospedale per controlli, ma avevo riconquistato la mia meritata serenità: la quiete dopo la tempesta. Dovevo solo riposarmi, riprendere le forze, prendere tante medicine… ed essere felice."
     ]
   },
   {
-    slug: "la-barba",
-    date: "2025-12-04",
-    title: "Una volta avevo la barba",
-    excerpt: "Il nome del sito viene da qui. Tre settimane dopo l'inizio della chemio, ho preso la decisione di farlo io prima che lo facesse lei.",
-    tag: "corpo",
+    slug: "la-disciplina-dell-ospedale-parte-5",
+    date: "2025-05-04",
+    title: "La disciplina dell'ospedale (Parte 5)",
+    excerpt: "Erano passati sei mesi dal trapianto allogenico. Febbraio 2024, e la comunicazione di recidiva sembrava lontana.",
+    tag: "dentro",
+    accent: "var(--slate)",
+    image: "torrette.png",
+    imagePosition: "center 25%",
+    imageScale: 0.88,
+    thumb: "macchina",
+    body: [
+      "Erano passati sei mesi dal trapianto allogenico. Febbraio 2024, e la comunicazione di recidiva dell’anno precedente sembrava ormai così lontana.",
+      "«Quest’anno torno alle feste medievali,» dissi a Francesca. Non mi importava se fosse faticoso, volevo riprendermi la mia vita, fare ciò che amavo. «A fine settembre torniamo a Firenze.» Questi erano i programmi. Volevamo rivivere il 2022 e ci stavamo preparando per quello.",
+      "Tutto procedeva per il meglio, finché ad aprile arrivò un “intoppo”. Mi fu diagnosticata la GVHD, malattia del trapianto contro l’ospite), una complicanza che può verificarsi dopo un trapianto di cellule staminali o di midollo osseo. Si manifesta quando le cellule immunitarie del donatore attaccano i tessuti del ricevente, considerandoli “estranei”. Cortisone, pazienza, che ormai avevo imparato ad avere in abbondanza e arrivò giugno.",
+      "Sembrava un déjà-vu quando mi chiamarono dall’ospedale di Ancona. «Dovresti ripetere il prelievo del midollo.» Lo feci e, dopo qualche giorno, scoprii il WT1, un marcatore che i medici usano per monitorare la risposta alle cure o individuare una possibile recidiva. Sì, ero di nuovo in recidiva. Tutta la fatica e la sofferenza dell’anno precedente non erano servite a nulla. Ero di nuovo al punto di partenza, solo che questa volta avevo finito le frecce al mio arco.",
+      "Non starò a descrivere il mio stato d’animo: era lo stesso della recidiva precedente, ma moltiplicato per cento. «Alle feste medievali ci vengo lo stesso,» dissi a Francesca. Iniziavano il venti luglio.",
+      "Non ci crederete, ma il diciotto mi venne la febbre, con un rossore dietro al collo. Le analisi del sangue indicarono trentamila globuli bianchi, un valore ben oltre la norma; avevo blasti nel sangue e non mi sentivo bene. Tachipirina per il weekend, sembra il titolo di un film, e invece era solo l’anticipo del peggio. Il lunedì mi fu diagnosticato l’herpes zoster, comunemente conosciuto come fuoco di Sant’Antonio, che si stava diffondendo sulla parte destra della testa.",
+      "Una visita di controllo il ventidue si trasformò in un ricovero urgente: febbre alta, zoster, freddo, brividi. In venti minuti mi rimisero il PICC e mi ritrovai nella stanza BCM del reparto di ematologia, febbre a 40,7, allucinazioni e un fastidio atroce alla testa. Avevo centodiecimila globuli bianchi. Il mio corpo, già provato da tutte le terapie precedenti, fu sottoposto a un nuovo tentativo per abbassare quei globuli bianchi impazziti che volevano uccidermi.",
+      "Due settimane e mezzo dopo fui dimesso dall’ospedale. I mesi seguenti furono segnati, oltre che dal caldo infernale di agosto, dalla neuropatia post-zoster. Dolori atroci, mai provati prima, partivano dai nervi e si diffondevano su viso e testa, facendomi urlare come un pazzo, tanto che dovetti prendere antidolorifici pesanti che mi intontivano. Quello che pensavo non corrispondeva più a ciò che riuscivo a dire. Giramenti di testa, perdita di equilibrio, fino a cadere e rompermi una costola. Questo mi costrinse a letto, portandomi a perdere tono muscolare.",
+      "Nel frattempo, i medici di Ancona mi parlarono di una cura sperimentale che avrebbe potuto aiutarmi, forse perfino dare una svolta positiva alla leucemia. Una nuova freccia all’arco.",
+      "Camminavo male, riuscivo a malapena ad alzarmi per andare in bagno. Un lunedì di fine settembre, subito dopo colazione, tornai a letto come al solito... ma stavolta sentii di nuovo freddo. Insufficienza respiratoria. Non respiravo, avevo fame d’aria. Francesca non esitò a chiamare l’ambulanza, che mi portò d’urgenza in ospedale. Questa volta, almeno, ero a Civitanova. La diagnosi fu polmonite: maschere, caschi per l’ossigeno,“bellissimi gadget” come li chiamavo io, con un filo d’ironia.",
+      "Passai quattro settimane in ospedale con una sorprendente tranquillità, anche se avevo perso l’uso delle gambe. Non potevo più camminare, non riuscivo a muovermi, non ero più autosufficiente. Mio padre veniva all’ora di pranzo per aiutarmi a mangiare, Francesca arrivava per la cena. Fisioterapia e musica: questo era il mio mondo.",
+      "Quando tornai a casa, ero in sedia a rotelle, ma almeno senza febbre. Iniziarono i giri di analisi e trasfusioni che ancora oggi continuano. Mi fu prescritta la pillola sperimentale di cui vi avevo parlato e cominciai le visite all’ospedale di Bologna. Due pillole al giorno, e persi di nuovo i sapori in bocca: anche l’acqua prese il sapore della medicina.",
+      "Fu proprio in quel periodo che smisi di preoccuparmi della malattia. Volevo vivere normalmente, come se la malattia non fosse mai esistita. A dicembre 2024, Francesca diventò mia moglie. Volevo essere felice. Volevo che Francesca fosse felice. Volevo quello stato interiore di calma, equilibrio e pace, anche quando intorno a noi le cose non erano perfette.",
+      "Ma un lunedì mattina di marzo non mi sentii bene. Di nuovo ambulanza, terzo ricovero in otto mesi. Diagnosi: Endocardite.",
+      "Oggi, quando mi guardo allo specchio, non vedo solo cicatrici, capelli mancanti, o un corpo cambiato. Vedo un ragazzo che ha attraversato l’inferno e ne è uscito con il cuore ancora aperto alla vita. Ho imparato che la felicità non è un premio da conquistare alla fine del viaggio, ma qualcosa che coltiviamo, giorno per giorno, anche mentre camminiamo nel buio.",
+      "Francesca, gli amici, i medici, i piccoli momenti di musica, le passeggiate lente, i profumi delle feste medievali, un sorriso inatteso in corsia, tutto questo mi ha insegnato che la vita non è fatta di anni o di traguardi, ma di attimi. Attimi che diventano eterni se li sappiamo abbracciare.",
+      "Forse non so cosa mi riserverà il domani. Ma so che, qualunque cosa accada, io continuerò a scegliere di vivere, con la stessa intensità con cui si affronta un concerto, una risata, un abbraccio. Perché la verità è semplice: finché posso amare, finché posso stupirmi, finché posso dire “grazie”, io sono vivo. E questa, per me, è la vittoria più grande."
+    ]
+  }
+].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+const ARGOMENTI_POSTS = [
+  {
+    slug: "perche-ho-deciso-di-scrivere",
+    date: "2025-05-09",
+    title: "Perché ho deciso di scrivere di questo",
+    excerpt: "Quello che cercavo era qualcuno che mi spiegasse cosa stava succedendo nel mio corpo, senza laurea in medicina come prerequisito.",
+    tag: "iniziare",
+    accent: "var(--orange)",
+    thumb: "appunti",
+    body: [
+      "Quello che cercavo era semplice: qualcuno che mi spiegasse cosa stava succedendo nel mio corpo, senza laurea in medicina come prerequisito. Non l'ho trovato, quindi ho deciso di scriverlo io.",
+      "Non sono un medico e non voglio esserlo. Sono una persona che ha ricevuto una diagnosi di leucemia mieloide acuta e ha dovuto imparare in fretta un sacco di cose che non aveva mai voluto sapere. Quello che scrivo qui viene da quella esperienza: libri, conversazioni con i medici, domande fatte e rifatte, notti a capire cosa significava un termine che aveva sentito la mattina.",
+      "L'obiettivo non è sostituire il tuo oncologo. L'obiettivo è farti arrivare alla visita con qualche domanda in più e un po' meno disorientamento.",
+      "Se sei qui perché stai attraversando qualcosa di simile, spero che trovi quello che non ho trovato io."
+    ]
+  },
+  {
+    slug: "la-diagnosi-spiegata",
+    date: "2025-05-10",
+    title: "La diagnosi spiegata a chi non capisce la medicina",
+    excerpt: "Un modo più umano per capire leucemia mieloide acuta, midollo, blasti, esami e primi giorni dopo la diagnosi.",
+    tag: "capire",
+    accent: "var(--slate)",
+    thumb: "diagnosi",
+    body: [
+      "Questo non è un articolo scientifico. È quello che avrei voluto leggere io il giorno della diagnosi.",
+      "## Cos'è, in parole normali",
+      "Il sangue è fatto di cellule: globuli rossi, globuli bianchi e piastrine. Ognuna ha un compito preciso. I globuli bianchi, in particolare, sono il sistema di difesa del corpo e combattono le infezioni.",
+      "Nel midollo osseo, la fabbrica dentro le ossa, queste cellule vengono prodotte continuamente. In condizioni normali, nascono, maturano, fanno il loro lavoro e muoiono.",
+      "Con la leucemia mieloide acuta succede qualcosa di diverso: alcune cellule smettono di maturare e iniziano a moltiplicarsi in modo incontrollato, ancora immature e inutili. Queste cellule, chiamate blasti, invadono il midollo, poi il sangue, e progressivamente impediscono alle cellule sane di fare il loro lavoro.",
+      "Il termine acuta non significa gravissima, anche se la malattia è seria: significa che si sviluppa velocemente, nell'arco di settimane. Mieloide indica da quale linea di cellule origina il problema.",
+      "## Come viene scoperta",
+      "Spesso la diagnosi arriva quasi per caso, dopo esami del sangue fatti per tutt'altro, stanchezza persistente, un'infezione che non passa, lividi che compaiono senza motivo.",
+      "L'emocromo mostra qualcosa che non torna: globuli bianchi troppo alti o troppo bassi, globuli rossi scarsi, piastrine basse. Il medico a quel punto manda in ematologia.",
+      "Aspirato midollare, biopsia osteomidollare e analisi citogenetica o molecolare servono a capire quanti blasti ci sono, di che tipo sono e quali mutazioni guidano la malattia. Questo è fondamentale perché la LMA non è una sola malattia: ci sono varianti diverse e il trattamento cambia di conseguenza.",
+      "## Cosa aspettarsi nei giorni che seguono",
+      "I primi giorni dopo la diagnosi sono disorientanti. Arrivano informazioni in quantità, in un linguaggio che non è il tuo, mentre sei emotivamente a pezzi.",
+      "Il ricovero è quasi immediato. La LMA si tratta in ospedale, almeno nella fase iniziale. Non c'è tempo da perdere, e questo può sembrare brutale, ma è proprio perché la malattia si muove in fretta che i medici si muovono in fretta.",
+      "Il catetere venoso centrale diventa presto familiare: permette di fare chemioterapia, prelievi e trasfusioni senza bucare un braccio ogni volta. All'inizio sembra invasivo, poi non ci pensi più.",
+      "La chemioterapia di induzione è la prima fase: dura circa una settimana di infusioni, poi seguono settimane di attesa mentre il midollo cerca di riprendersi. In quel periodo le difese immunitarie sono praticamente a zero, si sta in camera quasi isolati, si fa attenzione a tutto.",
+      "La stanchezza è reale. Non è mi sento un po' giù, è un'altra cosa. Il corpo sta combattendo su più fronti contemporaneamente. Darsi il permesso di riposare non è debolezza."
+    ]
+  },
+  {
+    slug: "guida-turistica-al-reparto-di-ematologia",
+    date: "2025-05-11",
+    title: "Guida turistica al reparto di ematologia",
+    excerpt: "Una destinazione che non avresti scelto, tra stanze, cicli di terapia, aria filtrata, vassoi e persone che diventano casa.",
+    tag: "ospedale",
     accent: "var(--mint)",
-    thumb: "barba",
+    thumb: "macchina",
     body: [
-      "Il nome del sito viene da qui. Una volta avevo la barba. Tipica barba folta, di chi non la cura ma se la tiene perché gli sta bene così.",
-      "Tre settimane dopo l'inizio della chemio, una mattina, mi sono passato la mano sul mento e mi sono rimasti tre peli in palmo. Tre, contati. Allora ho preso la decisione di farlo io prima che lo facesse lei.",
-      "Tagliarsi la barba da soli con un rasoio elettrico mentre piangi non è dignitoso come ce lo immaginiamo nei film. È ridicolo. Il bagno era pieno di peli. Mio fratello è entrato, ha visto la scena, e mi ha aiutato a finire. Non ha detto niente.",
-      "Dopo, mi sono guardato allo specchio e per la prima volta in vita mia ho visto la forma esatta della mia mascella.",
-      "Mi sono detto: ok. Adesso sei diverso. Va bene."
+      "Una destinazione che non avreste scelto, ma che vi cambierà comunque la vita.",
+      "## Come si arriva",
+      "A differenza di qualsiasi altra meta turistica, qui non esistono voli low cost né pacchetti last minute. L'accesso è riservato, e il biglietto d'ingresso arriva sotto forma di esame del sangue con valori che non tornano.",
+      "Nessuno prenota questo viaggio con entusiasmo. Eppure ci si ritrova qui, con una valigia fatta in fretta e un referto in mano che recita parole come leucemia mieloide acuta, tre parole che cambiano il significato di tutte le altre.",
+      "## Il territorio",
+      "L'ematologia non è un posto solo. È una rete di luoghi collegati da corridoi e carrelli porta farmaci.",
+      "Le camere, chiamarle stanze è un eufemismo nobile, sono il cuore della permanenza. Piccole, funzionali, con una finestra che diventa il vostro rapporto principale con il mondo esterno. Il tempo qui si misura in cicli di chemioterapia, non in giorni della settimana.",
+      "Il lunedì e il giovedì perdono significato. Quello che conta è: primo giorno di ciclo, o ultimo?",
+      "## Clima e stagioni",
+      "Il microclima del reparto è una costante: aria filtrata, temperatura controllata, silenzio intervallato da bip. Le stagioni esterne diventano un concetto astratto. Si intuiscono dal cambio del pigiama dei visitatori, cappotto pesante, poi giacca leggera, ma rimangono fuori dalla porta, insieme al resto del mondo normale.",
+      "Consiglio pratico: portate oggetti da casa. Un cuscino, una coperta, qualcosa che odori di familiare. L'olfatto è il senso che il reparto non riesce a standardizzare.",
+      "## La gastronomia locale",
+      "Il cibo ospedaliero merita una menzione speciale, nel senso in cui si menziona qualcosa che ha provato a fare del suo meglio. I vassoi arrivano puntuali, coperti da pellicola, con una silenziosa dignità.",
+      "Nei giorni di chemioterapia intensa, l'appetito è un ospite assente e il rapporto con il cibo diventa un negoziato quotidiano tra quello che il corpo vuole e quello che riesce a tollerare.",
+      "## La gente del posto",
+      "Gli abitanti fissi del reparto, medici, infermieri, OSS, sono la vera attrattiva di questa destinazione. Sono persone che hanno scelto di stare in un posto difficile ogni giorno, e che imparano i vostri nomi, i vostri valori del sangue, le vostre paure.",
+      "E poi ci sono gli altri pazienti, i vicini di viaggio, quelli che si incrociano in corridoio trascinando la sacca della flebo. Con loro si stabilisce una solidarietà silenziosa, fatta di sguardi e di capire senza dover spiegare.",
+      "Nessuno vuole stare qui. Ma stranamente, non ci si sente soli.",
+      "## Cosa portare",
+      "Qualcosa da leggere, qualcosa da ascoltare, qualcosa da guardare. Il tempo nel reparto è abbondante e strano, lungo nei momenti di attesa, vorticoso nelle crisi.",
+      "Da non dimenticare: la pazienza. Non come virtù astratta, ma come muscolo concreto da allenare ogni giorno. E un caricabatterie lungo.",
+      "## Quando si parte",
+      "La dimissione è il momento più strano di tutto il viaggio. Si esce con le gambe che ricordano appena il pavimento, con una cartella clinica che pesa più di una valigia, e con una versione di sé stessi che non esisteva prima di entrare."
     ]
   },
   {
-    slug: "cose-imparate-in-ospedale",
-    date: "2026-01-22",
-    title: "Cose che ho imparato in ospedale",
-    excerpt: "Una lista lunga, scritta a pezzi in tre mesi. Niente di profondo. Solo cose che servono.",
-    tag: "appunti",
+    slug: "vademecum-anti-nausea-da-chemioterapia",
+    date: "2025-05-12",
+    title: "Vademecum anti-nausea da chemioterapia",
+    excerpt: "Farmaci, zenzero, braccialetti, cibo semplice e piccoli trucchi per una nausea che si può trattare.",
+    tag: "sopravvivere",
+    accent: "var(--cream)",
+    thumb: "appunti",
+    body: [
+      "Ho provato zenzero, meditazione e minacciare il mio stomaco. Il mio stomaco non negozia.",
+      "La nausea da chemioterapia è uno degli effetti collaterali più odiati, non perché sia il più grave, ma perché non smette mai al momento giusto.",
+      "Quello che ho trovato, tra studi e consigli pratici, è che alcune cose aiutano davvero. Altre funzionano abbastanza da valere comunque la pena. Le metto qui tutte insieme.",
+      "## Prima cosa: dillo al medico",
+      "Se la nausea è forte e non stai prendendo nulla di specifico, ci sono farmaci che funzionano bene. Non è una resa chiedere un aggiustamento della terapia. È l'unica cosa sensata.",
+      "## Lo zenzero funziona, ma come supporto",
+      "Lo zenzero può aiutare come supporto agli antiemetici. In pratica: tisana con zenzero fresco, limone e menta, oppure zenzero candito da tenere a portata di mano. Non esagerare con le dosi: dosi eccessive irritano lo stomaco, il che sarebbe controproducente.",
+      "## Il braccialetto sul polso",
+      "C'è un punto di agopressione sul polso interno, tre dita sopra la piega, chiamato P6. I braccialetti anti-nausea da viaggio lo stimolano. Costano poco, non fanno male, vale la pena provarli.",
+      "## Mangiare: le regole che nessuno vuole sentire",
+      "Pasti piccoli e frequenti: lo stomaco vuoto peggiora tutto. Cibi asciutti e insipidi: crackers, fette biscottate, gallette di riso. Temperatura ambiente o fredda, perché il caldo esalta gli odori.",
+      "Un consiglio che mi ha colpito: non mangiare il tuo piatto preferito nei giorni della chemio. Il cervello rischia di associarlo alla nausea e di rifiutarlo a lungo. Difendi i tuoi comfort food.",
+      "## La nausea che arriva prima",
+      "C'è una forma di nausea anticipatoria che compare prima della seduta: il corpo ha imparato ad associare certi ambienti o odori alla nausea precedente e parte in anticipo.",
+      "Musica o podcast durante il tragitto aiutano, così come un odore diverso che spezzi l'associazione. Nei casi seri, il medico può valutare un ansiolitico.",
+      "La nausea da chemio non è una tassa obbligatoria. È un sintomo trattabile. Se quello che stai usando non basta, ci sono ancora cose da provare, vale la pena insistere."
+    ]
+  },
+  {
+    slug: "libri-che-mi-stanno-salvando-la-mente",
+    date: "2025-05-13",
+    title: "Libri che mi stanno salvando la mente",
+    excerpt: "Quattro libri per mettere la testa da qualche parte che non sia il soffitto della stanza d'ospedale.",
+    tag: "mente",
     accent: "var(--slate)",
     thumb: "appunti",
     body: [
-      "Una lista lunga, scritta a pezzi in tre mesi. Niente di profondo. Solo cose che servono.",
-      "1. Porta sempre le ciabatte tue. Quelle dell'ospedale fanno male alle dita.",
-      "2. Le tisane buone non esistono nelle macchinette. Falle portare da qualcuno.",
-      "3. Il dolore della puntura la trentesima volta non è minore della prima. Bugia che ti raccontano.",
-      "4. I medici di guardia dei weekend sono i più umani. Probabilmente perché non hanno fretta.",
-      "5. Le persone che ti scrivono ogni giorno per i primi quindici giorni e poi spariscono non sono cattive persone. Sono solo persone.",
-      "6. Le persone che non ti scrivono mai e poi un giorno si presentano con un libro sono il tuo nuovo metro di misura.",
-      "7. Più è lungo il corridoio del reparto, più è facile contare i passi al ritorno.",
-      "8. Il primo giorno in cui ti viene voglia di cucinare è il primo giorno in cui stai tornando."
-    ]
-  },
-  {
-    slug: "il-rumore-della-macchina",
-    date: "2026-02-18",
-    title: "Il rumore della macchina",
-    excerpt: "Sei ore di trasfusione. Tre tubi. Una pompa che fa un click ogni dodici secondi. Li ho contati.",
-    tag: "dentro",
-    accent: "var(--slate)",
-    thumb: "macchina",
-    body: [
-      "Sei ore di trasfusione. Tre tubi. Una pompa che fa un click ogni dodici secondi. Li ho contati.",
-      "All'inizio il click ti dà fastidio. Poi non lo senti più. Poi, verso la quinta ora, ricomincia a darti fastidio e capisci che hai finito la batteria della pazienza.",
-      "Ho provato a leggere. Ho provato a guardare un film. Alla fine ho solo guardato fuori dalla finestra. C'è un cortile interno con un albero che non so come si chiama, ma a metà marzo aveva fatto delle gemme rosa che mi sembravano un'esagerazione.",
-      "Sto cercando di dire che a un certo punto, in mezzo a tutto questo macchinario, ho solo guardato un albero. E mi è bastato."
+      "Non ho iniziato a leggere di più perché sono diventato più saggio. Ho iniziato perché avevo bisogno di mettere la testa da qualche parte che non fosse il soffitto della stanza d'ospedale.",
+      "Questi quattro libri, in momenti diversi, hanno fatto esattamente questo.",
+      "## Uno psicologo nei lager di Viktor Frankl",
+      "Frankl era uno psichiatra austriaco sopravvissuto ai campi di concentramento nazisti. Il libro racconta quella esperienza, ma non è un libro sulla Shoah: è un libro sul senso.",
+      "Non lo consiglio perché c'è chi sta peggio, ragionamento inutile e fastidioso. Lo consiglio perché insegna a trovare un perché, e quando hai un perché riesci a sopportare quasi qualsiasi come.",
+      "## Profondo come il mare, leggero come il cielo di Gianluca Gotto",
+      "Gotto racconta una trasformazione personale profonda attraverso la filosofia buddhista e la meditazione, con uno stile diretto e senza pretese spirituali.",
+      "Quello che mi ha colpito è l'idea che sia possibile cambiare il proprio rapporto con la realtà senza aspettare che la realtà cambi per prima.",
+      "## 101 storie zen",
+      "È una raccolta di aneddoti brevi della tradizione zen, senza autore singolo, tramandati per secoli. Non si legge dall'inizio alla fine: si apre a caso, si legge una storia di mezza pagina, ci si pensa su.",
+      "È il tipo di libro perfetto per un posto come l'ospedale, dove la concentrazione dura poco e il tempo si dilata in modo strano.",
+      "## La città dei ladri di David Benioff",
+      "È l'unico romanzo della lista, e c'è un motivo. A volte la mente ha bisogno di staccare del tutto, non di essere illuminata.",
+      "Ambientato nell'assedio di Leningrado, è una storia di sopravvivenza, amicizia e umorismo nero in condizioni impossibili. Si legge in un respiro e lascia addosso qualcosa di difficile da spiegare: una specie di calore, nonostante tutto.",
+      "Aggiornerò questa lista man mano. Se hai letto qualcuno di questi e vuoi parlarne, scrivimi."
     ]
   }
-];
+].sort((a, b) => new Date(b.date) - new Date(a.date));
 
 const MONTHS = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
 
@@ -174,11 +390,16 @@ function fmtDate(iso) {
   return `${String(d.getDate()).padStart(2, "0")} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
 }
 
+function tagColor() {
+  return "var(--orange)";
+}
+
 function parseHash() {
   const parts = (window.location.hash || "#/").replace(/^#/, "").split("/").filter(Boolean);
   if (parts.length === 0) return { route: "home" };
   if (parts[0] === "blog" && parts[1]) return { route: "post", slug: parts[1] };
   if (parts[0] === "blog") return { route: "blog" };
+  if (parts[0] === "argomenti" && parts[1]) return { route: "argomento-post", slug: parts[1] };
   if (parts[0] === "argomenti") return { route: "argomenti" };
   if (parts[0] === "chi-sono" || parts[0] === "info") return { route: "chi-sono" };
   if (parts[0] === "contact") return { route: "contact" };
@@ -207,20 +428,19 @@ function NavBar({ route, theme }) {
     dark ? "text-white/95 drop-shadow" : "text-[var(--muted)]"
   }`;
   const activeClass = dark ? "text-white underline underline-offset-4 decoration-1" : "text-[var(--ink)] underline underline-offset-4 decoration-1";
-  const isActive = (name) => route === name || (name === "blog" && route === "post");
+  const isActive = (name) => route === name || (name === "blog" && route === "post") || (name === "argomenti" && route === "argomento-post");
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-10 flex items-center justify-between px-5 py-5 pointer-events-none sm:px-9 sm:py-7">
+    <header className="fixed left-0 right-0 top-0 z-10 flex flex-col items-start gap-3 px-5 py-5 pointer-events-none sm:flex-row sm:items-center sm:justify-between sm:px-9 sm:py-7">
       <a href="#/" className={`font-datatype ${linkClass} pointer-events-auto text-[22px] sm:text-[26px] ${dark ? "text-white" : "text-[var(--ink)]"}`}>
         unavoltavevolabarba
       </a>
-      <nav className="flex gap-3 pointer-events-auto sm:gap-7">
+      <nav className="flex flex-wrap gap-x-4 gap-y-2 pointer-events-auto sm:gap-7">
         {[
           ["#/", "Home", "home"],
           ["#/argomenti", "Argomenti", "argomenti"],
           ["#/blog", "Blog", "blog"],
-          ["#/chi-sono", "Chi Sono", "chi-sono"],
-          ["#/contact", "Contatti", "contact"]
+          ["#/chi-sono", "Chi Sono", "chi-sono"]
         ].map(([href, label, name]) => (
           <a key={href} href={href} className={`font-datatype ${linkClass} text-[15px] sm:text-[22px] ${isActive(name) ? activeClass : ""}`}>
             {label}
@@ -233,7 +453,7 @@ function NavBar({ route, theme }) {
 
 function Home() {
   return (
-    <main className="fixed inset-0 overflow-hidden">
+    <main className="min-h-screen overflow-hidden sm:fixed sm:inset-0">
       <img
         className="hero-image absolute inset-0 h-full w-full object-cover"
         src={heroPoppies}
@@ -241,12 +461,34 @@ function Home() {
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30" />
 
-      <div className="font-display absolute bottom-56 left-6 max-w-[360px] text-[18px] leading-snug text-white drop-shadow sm:left-9">
+      <div className="font-display absolute bottom-[50vh] left-6 max-w-[260px] text-[18px] leading-snug text-white drop-shadow sm:bottom-56 sm:left-9 sm:max-w-[360px]">
         musica, libri, videogiochi, zen, la mia malattia
-    
       </div>
 
-      <section className="absolute bottom-0 left-0 right-0 grid gap-3 p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-4">
+      <div className="glass-card absolute bottom-56 right-6 hidden w-[125px] p-4 text-right text-white sm:block sm:right-9">
+        <div className="font-display mb-3 text-[11px] uppercase tracking-widest drop-shadow">Contatti</div>
+        {[
+          ["Instagram", "https://instagram.com/frank_pw", "fa-brands fa-instagram"],
+          ["X", "https://x.com/frank_pw", "fa-brands fa-x-twitter"],
+          ["Facebook", "https://facebook.com/frank_pw", "fa-brands fa-facebook"],
+          ["Threads", "https://threads.net/@frank_pw", "fa-brands fa-threads"],
+          ["Telegram", "https://t.me/frank_pw1", "fa-brands fa-telegram"],
+        ].map(([label, url, icon]) => (
+          <a
+            key={label}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-display mb-1 block text-[15px] font-medium text-white no-underline opacity-90 transition-opacity hover:opacity-100"
+          >
+            <i className={`${icon} mr-2`} />
+            {label}
+          </a>
+        ))}
+      </div>
+
+      <section className="absolute bottom-0 left-0 right-0 grid max-h-[42vh] gap-3 overflow-y-auto p-4 sm:max-h-none sm:grid-cols-2 sm:overflow-visible sm:p-6 lg:grid-cols-4">
+        {/* TODO: creare un'animazione per i riquadri in basso in modo che si vedano anche i post meno recenti */}
         {POSTS.slice(0, 4).map((post) => (
           <a
             key={post.slug}
@@ -257,10 +499,10 @@ function Home() {
               className="h-[72px] w-[72px] flex-shrink-0 overflow-hidden"
               style={{ background: post.accent }}
             >
-              <Thumb type={post.thumb} />
+              <Thumb type={post.thumb} image={post.image} imagePosition={post.imagePosition} imageScale={post.imageScale} />
             </div>
             <div className="font-display flex min-w-0 flex-1 flex-col justify-between">
-              <div className="text-base leading-tight drop-shadow">
+              <div className="truncate whitespace-nowrap text-base leading-tight drop-shadow">
                 {post.title}
               </div>
               <div className="flex justify-between gap-2 text-[13px] opacity-85">
@@ -282,9 +524,9 @@ function BlogList() {
   const filtered = selectedTag ? POSTS.filter((p) => p.tag === selectedTag) : POSTS;
 
   return (
-    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[110px]">
+    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[145px] sm:pt-[110px]">
       <div className="mx-auto max-w-[980px] px-6 pb-28 sm:px-9">
-        <div className="flex items-start justify-between gap-8">
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h1 className="font-display mb-2 text-[56px] leading-none">Blog</h1>
             <p className="mb-14 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
@@ -293,18 +535,17 @@ function BlogList() {
             </p>
           </div>
 
-          <div className="shrink-0 pt-2 text-right">
+          <div className="shrink-0 pt-2 text-left sm:text-right">
             <div className="mb-3 text-[11px] uppercase tracking-widest text-[var(--soft-muted)]">Argomenti</div>
-            <div className="flex flex-col items-end gap-2">
+            <div className="flex flex-wrap gap-3 sm:flex-col sm:items-end sm:gap-2">
               {allTags.map((tag) => {
-                const accent = POSTS.find((p) => p.tag === tag)?.accent;
                 const active = selectedTag === tag;
                 return (
                   <button
                     key={tag}
                     onClick={() => setSelectedTag(active ? null : tag)}
-                    className="font-display cursor-pointer border-0 bg-transparent p-0 text-right text-[15px] lowercase transition-opacity"
-                    style={{ color: active ? accent : "var(--soft-muted)", opacity: active ? 1 : 0.7 }}
+                    className="font-display cursor-pointer border-0 bg-transparent p-0 text-left text-[15px] lowercase transition-opacity sm:text-right"
+                    style={{ color: tagColor(tag), opacity: active ? 1 : 0.7 }}
                   >
                     {active ? "→ " : ""}{tag}
                   </button>
@@ -324,16 +565,16 @@ function BlogList() {
               }`}
             >
               <div className="h-[76px] w-[120px] overflow-hidden" style={{ background: post.accent }}>
-                <Thumb type={post.thumb} />
+                <Thumb type={post.thumb} image={post.image} imagePosition={post.imagePosition} imageScale={post.imageScale} />
               </div>
               <div className="pt-1 text-[13px] text-[var(--muted)]">
                 {fmtDate(post.date)}
-                <div className="mt-1 lowercase" style={{ color: post.accent }}>
+                <div className="mt-1 lowercase" style={{ color: tagColor(post.tag) }}>
                   // {post.tag}
                 </div>
               </div>
               <div>
-                <h2 className="font-display mb-2 text-3xl leading-none">{post.title}</h2>
+                <h2 className="font-display mb-2 text-3xl leading-none sm:whitespace-nowrap">{post.title}</h2>
                 <p className="max-w-xl text-sm leading-relaxed text-[var(--body)]">{post.excerpt}</p>
               </div>
               <div className="font-display pt-2 text-right text-sm">LEGGI &rarr;</div>
@@ -347,100 +588,141 @@ function BlogList() {
 }
 
 function Argomenti() {
-  const topics = [...new Set(POSTS.map((post) => post.tag))].map((tag) => {
-    const posts = POSTS.filter((post) => post.tag === tag);
-    return {
-      tag,
-      posts,
-      accent: posts[0]?.accent || "var(--poppy)"
-    };
-  });
+  const [selectedTag, setSelectedTag] = useState(null);
+
+  const allTags = [...new Set(ARGOMENTI_POSTS.map((p) => p.tag))];
+  const filtered = selectedTag ? ARGOMENTI_POSTS.filter((p) => p.tag === selectedTag) : ARGOMENTI_POSTS;
 
   return (
-    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[110px]">
+    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[145px] sm:pt-[110px]">
       <div className="mx-auto max-w-[980px] px-6 pb-28 sm:px-9">
-        <h1 className="font-display mb-2 text-[56px] leading-none">Argomenti</h1>
-        <p className="mb-14 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
-          i fili ricorrenti dei post: dentro, fuori, corpo, appunti.<br />
-          scegli un argomento e riparti da lì.
-        </p>
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h1 className="font-display mb-2 text-[56px] leading-none">Argomenti</h1>
+            <p className="mb-14 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
+              una sezione separata dal blog, pronta per articoli dedicati.<br />
+              stesso impianto, contenuti diversi.
+            </p>
+          </div>
 
-        <section className="grid gap-5 md:grid-cols-2">
-          {topics.map((topic) => (
-            <div key={topic.tag} className="border border-[var(--line)] p-6">
-              <div className="mb-5 flex items-baseline justify-between gap-4 border-b border-[var(--line)] pb-4">
-                <h2 className="font-datatype text-3xl lowercase" style={{ color: topic.accent }}>
-                  {topic.tag}
-                </h2>
-                <span className="text-[13px] text-[var(--muted)]">
-                  {topic.posts.length} {topic.posts.length === 1 ? "post" : "post"}
-                </span>
-              </div>
-
-              <div className="flex flex-col">
-                {topic.posts.map((post) => (
-                  <a key={post.slug} href={`#/blog/${post.slug}`} className="blog-row border-b border-[var(--line)] py-4 text-[var(--ink)] no-underline last:border-b-0">
-                    <div className="mb-1 text-[12px] text-[var(--muted)]">{fmtDate(post.date)}</div>
-                    <div className="font-display text-2xl leading-tight">{post.title}</div>
-                    <p className="mt-2 text-sm leading-relaxed text-[var(--body)]">{post.excerpt}</p>
-                  </a>
-                ))}
-              </div>
+          <div className="shrink-0 pt-2 text-left sm:text-right">
+            <div className="mb-3 text-[11px] uppercase tracking-widest text-[var(--soft-muted)]">Filtra</div>
+            <div className="flex flex-wrap gap-3 sm:flex-col sm:items-end sm:gap-2">
+              {allTags.map((tag) => {
+                const active = selectedTag === tag;
+                return (
+                  <button
+                    key={tag}
+                    onClick={() => setSelectedTag(active ? null : tag)}
+                    className="font-display cursor-pointer border-0 bg-transparent p-0 text-left text-[15px] lowercase transition-opacity sm:text-right"
+                    style={{ color: tagColor(tag), opacity: active ? 1 : 0.7 }}
+                  >
+                    {active ? "→ " : ""}{tag}
+                  </button>
+                );
+              })}
             </div>
+          </div>
+        </div>
+
+        <section>
+          {filtered.map((post, index) => (
+            <a
+              key={post.slug}
+              href={`#/argomenti/${post.slug}`}
+              className={`blog-row grid gap-5 py-7 text-[var(--ink)] no-underline md:grid-cols-[120px_110px_1fr_80px] ${
+                index === 0 ? "border-t border-[var(--ink)]" : "border-t border-[var(--line)]"
+              }`}
+            >
+              <div className="h-[76px] w-[120px] overflow-hidden" style={{ background: post.accent }}>
+                <Thumb type={post.thumb} image={post.image} imagePosition={post.imagePosition} imageScale={post.imageScale} />
+              </div>
+              <div className="pt-1 text-[13px] text-[var(--muted)]">
+                {fmtDate(post.date)}
+                <div className="mt-1 lowercase" style={{ color: tagColor(post.tag) }}>
+                  // {post.tag}
+                </div>
+              </div>
+              <div>
+                <h2 className="font-display mb-2 text-3xl leading-none sm:whitespace-nowrap">{post.title}</h2>
+                <p className="max-w-xl text-sm leading-relaxed text-[var(--body)]">{post.excerpt}</p>
+              </div>
+              <div className="font-display pt-2 text-right text-sm">LEGGI &rarr;</div>
+            </a>
           ))}
+          <div className="border-t border-[var(--line)]" />
         </section>
       </div>
     </main>
   );
 }
 
-function BlogPost({ slug }) {
-  const index = POSTS.findIndex((post) => post.slug === slug);
-  const post = POSTS[index];
+function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti i post" }) {
+  const index = posts.findIndex((post) => post.slug === slug);
+  const post = posts[index];
 
   if (!post) {
     return (
       <main className="page-fade min-h-screen bg-[var(--paper)] pt-40">
         <div className="mx-auto max-w-3xl px-9">
-          Post non trovato. <a href="#/blog">torna al blog &rarr;</a>
+          Post non trovato. <a href={basePath}>torna indietro &rarr;</a>
         </div>
       </main>
     );
   }
 
-  const prev = POSTS[index + 1];
-  const next = POSTS[index - 1];
+  const prev = posts[index + 1];
+  const next = posts[index - 1];
 
   return (
-    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[110px]">
+    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[145px] sm:pt-[110px]">
       <article className="mx-auto max-w-3xl px-6 pb-28 sm:px-9">
-        <a href="#/blog" className="mb-10 inline-block text-[13px] text-[var(--muted)] no-underline">
-          &larr; tutti i post
+        <a href={basePath} className="mb-10 inline-block text-[13px] text-[var(--muted)] no-underline">
+          &larr; {backLabel}
         </a>
 
         <div className="mb-5 flex items-center gap-4 text-[13px]">
           <span className="text-[var(--muted)]">{fmtDate(post.date)}</span>
-          <span className="lowercase" style={{ color: post.accent }}>
+          <span className="lowercase" style={{ color: tagColor(post.tag) }}>
             // {post.tag}
           </span>
         </div>
 
-        <h1 className="font-display mb-10 text-[48px] leading-none sm:text-[56px]">{post.title}</h1>
+        <h1 className="font-display mb-10 text-[clamp(34px,11vw,56px)] leading-none sm:whitespace-nowrap sm:text-[clamp(20px,6.5vw,56px)]">{post.title}</h1>
 
         <div className="text-[15px] leading-7 text-[var(--body)]">
-          {post.body.map((paragraph, i) => (
-            <p key={i} className="mb-6">{paragraph}</p>
-          ))}
+          {post.body.map((paragraph, i) => {
+            if (paragraph.startsWith("## ")) {
+              return (
+                <h2 key={i} className="font-display mb-4 mt-10 text-[28px] leading-tight text-[var(--ink)]">
+                  {paragraph.replace(/^##\s+/, "")}
+                </h2>
+              );
+            }
+
+            if (i === 0 && paragraph.startsWith("«")) {
+              return (
+                <blockquote key={i} className="mb-8 border-l-2 border-[var(--poppy)] pl-5 text-xl leading-relaxed text-[var(--ink)]">
+                  <p className="mb-3">{paragraph}</p>
+                  {post.body[i + 1] && <cite className="block text-sm not-italic text-[var(--muted)]">{post.body[i + 1]}</cite>}
+                </blockquote>
+              );
+            }
+
+            if (i === 1 && post.body[0]?.startsWith("«")) return null;
+
+            return <p key={i} className="mb-6">{paragraph}</p>;
+          })}
         </div>
 
         <div className="mt-14 border-t border-dashed border-[var(--line)] pt-6 text-[15px]">- io</div>
 
         <nav className="mt-16 grid gap-4 sm:grid-cols-2">
           <div>
-            {prev && <PostNav post={prev} label="← post precedente" />}
+            {prev && <PostNav post={prev} label="← post precedente" basePath={basePath} />}
           </div>
           <div>
-            {next && <PostNav post={next} label="post successivo →" align="right" />}
+            {next && <PostNav post={next} label="post successivo →" align="right" basePath={basePath} />}
           </div>
         </nav>
       </article>
@@ -448,18 +730,18 @@ function BlogPost({ slug }) {
   );
 }
 
-function PostNav({ post, label, align = "left" }) {
+function PostNav({ post, label, align = "left", basePath = "#/blog" }) {
   return (
-    <a href={`#/blog/${post.slug}`} className={`block border border-[var(--line)] p-5 text-[var(--ink)] no-underline ${align === "right" ? "text-right" : ""}`}>
+    <a href={`${basePath}/${post.slug}`} className={`block border border-[var(--line)] p-5 text-[var(--ink)] no-underline ${align === "right" ? "text-right" : ""}`}>
       <div className="mb-2 text-xs text-[var(--muted)]">{label}</div>
-      <div className="font-display text-xl leading-tight">{post.title}</div>
+      <div className="font-display truncate whitespace-nowrap text-xl leading-tight">{post.title}</div>
     </a>
   );
 }
 
 function ChiSono() {
   return (
-    <main className="page-fade min-h-screen bg-[var(--paper-2)] pt-[110px]">
+    <main className="page-fade min-h-screen bg-[var(--paper-2)] pt-[145px] sm:pt-[110px]">
       <div className="mx-auto grid max-w-[1400px] lg:min-h-[calc(100vh-110px)] lg:grid-cols-2">
         <section className="px-6 py-14 sm:px-14 sm:py-16">
           <div className="max-w-[480px] space-y-5 text-[15px] leading-8">
@@ -476,12 +758,7 @@ function ChiSono() {
               possa essere d'aiuto a chiunque possa averne bisogno in qualche
               modo. Questo blog è dove metto tutto insieme.
             </p>
-            <p className="pt-5">
-              ciao<span className="text-[var(--poppy)]">@</span>
-              unavoltavevolabarba<span className="text-[var(--poppy)]">.</span>
-              it
-            </p>
-            <p className="pt-5">- io</p>
+            
           </div>
         </section>
         <section className="relative min-h-[420px] overflow-hidden bg-[var(--slate)]">
@@ -508,7 +785,7 @@ function Contact() {
   };
 
   return (
-    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[110px]">
+    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[145px] sm:pt-[110px]">
       <div className="mx-auto max-w-3xl px-6 pb-28 sm:px-9">
         <h1 className="font-display mb-2 text-[56px] leading-none">Contact</h1>
         <p className="mb-12 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
@@ -556,7 +833,6 @@ function FormField({ label, children }) {
     </label>
   );
 }
-
 function App() {
   const route = useRoute();
   const theme = route.route === "home" ? "dark" : "light";
@@ -565,6 +841,7 @@ function App() {
   if (route.route === "blog") page = <BlogList />;
   if (route.route === "post") page = <BlogPost slug={route.slug} />;
   if (route.route === "argomenti") page = <Argomenti />;
+  if (route.route === "argomento-post") page = <BlogPost slug={route.slug} posts={ARGOMENTI_POSTS} basePath="#/argomenti" backLabel="tutti gli argomenti" />;
   if (route.route === "chi-sono") page = <ChiSono />;
   if (route.route === "contact") page = <Contact />;
 
