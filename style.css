@@ -1,0 +1,120 @@
+:root {
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --slate: #9299B2;
+  --mint: #D8F5E5;
+  --orange: #E85F00;
+  --cream: #FFF7B8;
+  --paper: #FAF8EF;
+  --paper-2: #D8F5E5;
+  --ink: #141414;
+  --muted: #626878;
+  --soft-muted: #9299B2;
+  --line: #C9CFB8;
+  --body: #2E3036;
+  --poppy: #E85F00;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--poppy);
+  color: #fff;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-datatype {
+  font-family: "Limelight", sans-serif;
+  font-weight: 400;
+}
+
+button:focus,
+input:focus,
+textarea:focus,
+a:focus {
+  outline: 2px solid var(--poppy);
+  outline-offset: 2px;
+}
+
+a:focus-visible {
+  outline-offset: 4px;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-fade {
+  animation: fadein 280ms ease both;
+}
+
+.hero-image {
+  object-position: 50% 50%;
+  transform: scale(1.2);
+  transform-origin: center center;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.blog-row {
+  transition: background 120ms ease;
+}
+
+.blog-row:hover {
+  background: rgba(20, 20, 20, 0.04);
+}
+
+.field {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  padding: 10px 0;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+  resize: none;
+}
