@@ -1,6 +1,6 @@
 const { useState, useEffect } = React;
 
-const heroPoppies = "papaveri.png";
+const heroPoppies = "papaveri-hero.jpg";
 const COLORS = {
   slate: "var(--slate)",
   mint: "var(--mint)",
@@ -458,6 +458,7 @@ function NavBar({ route, theme }) {
 
 function Home() {
   const contactsRef = React.useRef(null);
+  const heroImageRef = React.useRef(null);
 
   React.useEffect(() => {
     const el = contactsRef.current;
@@ -470,13 +471,56 @@ function Home() {
     return () => observer.disconnect();
   }, []);
 
+  React.useEffect(() => {
+    const image = heroImageRef.current;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!image || reduceMotion) return;
+
+    let pointerX = 0;
+    let scrollY = window.scrollY;
+    let rafId = null;
+
+    const render = () => {
+      const scrollShift = Math.min(scrollY * 0.12, 42);
+      image.style.setProperty("--home-hero-x", `${pointerX * 10}px`);
+      image.style.setProperty("--home-hero-y", `${scrollShift}px`);
+      rafId = null;
+    };
+
+    const requestRender = () => {
+      if (rafId === null) rafId = window.requestAnimationFrame(render);
+    };
+
+    const onPointerMove = (event) => {
+      pointerX = (event.clientX / window.innerWidth - 0.5) * 2;
+      requestRender();
+    };
+
+    const onScroll = () => {
+      scrollY = window.scrollY;
+      requestRender();
+    };
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    requestRender();
+
+    return () => {
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("scroll", onScroll);
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   return (
     <main className="page-fade min-h-screen">
       <div className="fixed inset-0 -z-10">
         <img
+          ref={heroImageRef}
           className="hero-image home-hero-image h-full w-full object-cover"
           src={heroPoppies}
           alt=""
+          fetchPriority="high"
         />
       </div>
 
@@ -563,7 +607,7 @@ function PostRow({ post, index, href }) {
           <div className="mb-1 text-[11px] text-[var(--muted)]">
             {fmtDate(post.date)} · <span style={{ color: tagColor(post.tag) }}>{post.tag}</span>
           </div>
-          <h2 className="font-display mb-1 text-[clamp(19px,6vw,24px)] leading-tight">{post.title}</h2>
+          <h2 className={`font-display mb-1 leading-tight ${post.slug === "un-giorno-qualunque-parte-1" ? "post-title-single-line" : "text-[clamp(19px,6vw,24px)]"}`}>{post.title}</h2>
           <p className="line-clamp-2 text-[13px] leading-relaxed text-[var(--body)]">{post.excerpt}</p>
         </div>
       </div>
@@ -577,7 +621,7 @@ function PostRow({ post, index, href }) {
           <div className="mt-1 lowercase" style={{ color: tagColor(post.tag) }}>// {post.tag}</div>
         </div>
         <div>
-          <h2 className="font-display mb-2 text-3xl leading-tight">{post.title}</h2>
+          <h2 className={`font-display mb-2 leading-tight ${post.slug === "un-giorno-qualunque-parte-1" ? "post-title-single-line" : "text-3xl"}`}>{post.title}</h2>
           <p className="max-w-xl text-sm leading-relaxed text-[var(--body)]">{post.excerpt}</p>
         </div>
         <div className="font-display pt-2 text-right text-sm">LEGGI &rarr;</div>
@@ -715,7 +759,7 @@ function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti
           </span>
         </div>
 
-        <h1 className="font-display mb-8 [overflow-wrap:anywhere] text-[clamp(32px,10vw,56px)] leading-tight sm:mb-10">{post.title}</h1>
+        <h1 className={`font-display mb-8 leading-tight sm:mb-10 ${post.slug === "un-giorno-qualunque-parte-1" ? "post-title-article-single-line" : "[overflow-wrap:anywhere] text-[clamp(32px,10vw,56px)]"}`}>{post.title}</h1>
 
         <div className="text-[15px] leading-7 text-[var(--body)] sm:text-base sm:leading-8">
           {post.body.map((paragraph, i) => {
@@ -769,9 +813,9 @@ function PostNav({ post, label, align = "left", basePath = "#/blog" }) {
 function ChiSono() {
   return (
     <main className="page-fade min-h-screen bg-[var(--paper-2)] pt-[132px] sm:pt-[110px]">
-      <div className="mx-auto grid max-w-[1400px] lg:min-h-[calc(100vh-110px)] lg:grid-cols-2">
+      <div className="mx-auto max-w-[980px] px-4 pb-24 sm:px-9 sm:pb-28">
         <section className="px-4 py-12 sm:px-14 sm:py-16">
-          <div className="max-w-[480px] space-y-5 text-[15px] leading-8">
+          <div className="max-w-[620px] space-y-5 text-[15px] leading-8">
             <h1 className="font-display mb-8 text-[clamp(36px,8vw,56px)] leading-none">
               Chi Sono
             </h1>
@@ -787,13 +831,6 @@ function ChiSono() {
             </p>
             
           </div>
-        </section>
-        <section className="relative min-h-[320px] overflow-hidden bg-[var(--slate)] sm:min-h-[420px]">
-          <img
-            className="hero-image absolute inset-0 h-full w-full object-cover"
-            src={heroPoppies}
-            alt=""
-          />
         </section>
       </div>
     </main>
