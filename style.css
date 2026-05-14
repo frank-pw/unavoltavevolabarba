@@ -93,7 +93,7 @@ a:focus-visible {
 
   .home-post-grid {
     bottom: 16px;
-    max-height: 34svh;
+    max-height: none;
   }
 
   .home-post-grid .glass-card {

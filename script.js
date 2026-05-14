@@ -260,6 +260,7 @@ const ARGOMENTI_POSTS = [
     tag: "iniziare",
     accent: "var(--orange)",
     thumb: "appunti",
+    image: "assets/argomenti/iniziare.png",
     body: [
       "Quello che cercavo era semplice: qualcuno che mi spiegasse cosa stava succedendo nel mio corpo, senza laurea in medicina come prerequisito. Non l'ho trovato, quindi ho deciso di scriverlo io.",
       "Non sono un medico e non voglio esserlo. Sono una persona che ha ricevuto una diagnosi di leucemia mieloide acuta e ha dovuto imparare in fretta un sacco di cose che non aveva mai voluto sapere. Quello che scrivo qui viene da quella esperienza: libri, conversazioni con i medici, domande fatte e rifatte, notti a capire cosa significava un termine che aveva sentito la mattina.",
@@ -275,6 +276,7 @@ const ARGOMENTI_POSTS = [
     tag: "capire",
     accent: "var(--slate)",
     thumb: "diagnosi",
+    image: "assets/argomenti/capire.png",
     body: [
       "Questo non è un articolo scientifico. È quello che avrei voluto leggere io il giorno della diagnosi.",
       "## Cos'è, in parole normali",
@@ -302,6 +304,7 @@ const ARGOMENTI_POSTS = [
     tag: "ospedale",
     accent: "var(--mint)",
     thumb: "macchina",
+    image: "assets/argomenti/ospedale.png",
     body: [
       "Una destinazione che non avreste scelto, ma che vi cambierà comunque la vita.",
       "## Come si arriva",
@@ -336,6 +339,7 @@ const ARGOMENTI_POSTS = [
     tag: "sopravvivere",
     accent: "var(--cream)",
     thumb: "appunti",
+    image: "assets/argomenti/sopravvivere.png",
     body: [
       "Ho provato zenzero, meditazione e minacciare il mio stomaco. Il mio stomaco non negozia.",
       "La nausea da chemioterapia è uno degli effetti collaterali più odiati, non perché sia il più grave, ma perché non smette mai al momento giusto.",
@@ -363,6 +367,7 @@ const ARGOMENTI_POSTS = [
     tag: "mente",
     accent: "var(--slate)",
     thumb: "appunti",
+    image: "assets/argomenti/mente.png",
     body: [
       "Non ho iniziato a leggere di più perché sono diventato più saggio. Ho iniziato perché avevo bisogno di mettere la testa da qualche parte che non fosse il soffitto della stanza d'ospedale.",
       "Questi quattro libri, in momenti diversi, hanno fatto esattamente questo.",
@@ -431,7 +436,7 @@ function NavBar({ route, theme }) {
   const isActive = (name) => route === name || (name === "blog" && route === "post") || (name === "argomenti" && route === "argomento-post");
 
   return (
-    <header className={`fixed left-0 right-0 top-0 z-10 flex flex-col items-start gap-3 px-4 py-4 pointer-events-none sm:flex-row sm:items-center sm:justify-between sm:px-9 sm:py-7 ${dark ? "" : "bg-[rgba(250,248,239,0.92)] backdrop-blur-sm sm:bg-transparent sm:backdrop-blur-0"}`}>
+    <header className={`fixed left-0 right-0 top-0 z-10 flex flex-col items-start gap-3 px-4 py-4 pointer-events-none sm:flex-row sm:items-center sm:justify-between sm:px-9 sm:py-7 ${dark ? "" : "bg-[rgba(250,248,239,0.96)] backdrop-blur-sm"}`}>
       <a href="#/" className={`font-datatype ${linkClass} pointer-events-auto max-w-full break-words text-[clamp(18px,6vw,22px)] leading-none sm:text-[26px] ${dark ? "text-white" : "text-[var(--ink)]"}`}>
         unavoltavevolabarba
       </a>
@@ -479,9 +484,9 @@ function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-[220px] bg-gradient-to-b from-transparent to-[#141414]" />
 
-        <section className="home-post-grid absolute bottom-8 left-0 right-0 z-10 grid max-h-[46svh] gap-3 overflow-y-auto p-3 sm:bottom-12 sm:max-h-none sm:grid-cols-2 sm:overflow-visible sm:p-6 lg:grid-cols-4">
-          {/* TODO: creare un'animazione per i riquadri in basso in modo che si vedano anche i post meno recenti */}
-          {POSTS.slice(0, 4).map((post) => (
+        <section className="home-post-grid absolute bottom-8 left-0 right-0 z-10 grid max-h-[46svh] gap-3 overflow-visible p-3 sm:bottom-12 sm:max-h-none sm:grid-cols-2 sm:p-6 lg:grid-cols-4">
+          
+         {POSTS.slice(0, 4).map((post) => (
             <a
               key={post.slug}
               href={`#/blog/${post.slug}`}
@@ -595,7 +600,7 @@ function BlogList() {
             <h1 className="font-display mb-2 text-[clamp(42px,14vw,56px)] leading-none">Blog</h1>
             <p className="mb-10 max-w-xl text-sm leading-relaxed text-[var(--muted)] sm:mb-14">
               appunti scritti dentro e fuori dall'ospedale.<br className="hidden sm:block" />
-              niente schema. l'ordine è quando li ho scritti, non quando sono successi.
+              niente schema. 
             </p>
           </div>
 
@@ -643,7 +648,7 @@ function Argomenti() {
           <div>
             <h1 className="font-display mb-2 text-[clamp(40px,13vw,56px)] leading-none">Argomenti</h1>
             <p className="mb-10 max-w-xl text-sm leading-relaxed text-[var(--muted)] sm:mb-14">
-              una sezione separata dal blog, pronta per articoli dedicati.<br className="hidden sm:block" />
+              una sezione separata dal blog per articoli dedicati.<br className="hidden sm:block" />
               stesso impianto, contenuti diversi.
             </p>
           </div>
