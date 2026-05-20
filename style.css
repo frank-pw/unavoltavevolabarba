@@ -145,7 +145,7 @@ a:focus-visible {
 }
 
 .post-title-single-line {
-  font-size: clamp(16px, 4.6vw, 24px);
+  font-size: clamp(19px, 6vw, 24px);
   white-space: nowrap;
 }
 

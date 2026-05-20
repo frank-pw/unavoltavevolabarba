@@ -92,6 +92,36 @@ function Thumb({ type, image, imagePosition, imageScale }) {
 
 const POSTS = [
   {
+    slug: "sopravvissuto-rileggendo-la-scalata",
+    date: "2026-05-20",
+    title: "Sopravvissuto: rileggendo la scalata",
+    excerpt: "Appunti su cosa significa rileggere la scalata dopo essere sopravvissuti.",
+    tag: "dentro",
+    accent: "var(--slate)",
+    thumb: "papaveri",
+    image: "dallafinestradisegno.jpeg",
+    body: [
+      "Qualche giorno fa ho ripreso in mano un file che non aprivo da un po'. Si chiama Sopravvissuto: La scalata. È un diario che ho tenuto durante i primi 47 giorni di ricovero in ospedale nell'estate del 2021, quando mi hanno diagnosticato una malattia che non avevo chiesto e che non avevo nessuna intenzione di accettare in silenzio.",
+      "L'ho riletto tutto d'un fiato.",
+      "La prima cosa che mi ha colpito è quanto fossi onesto con me stesso. Non nel senso buono e rassicurante, nel senso che non mi risparmiavo niente. Scrivevo di notte, con il telefono in mano mentre il compagno di stanza russava, e tiravo fuori tutto: la rabbia, la noia, la paura, i momenti in cui avrei voluto spegnere tutto.",
+      "Non è il diario di un eroe. È il diario di uno che cercava di non annegare e appuntava ogni cosa per non perdere il filo.",
+      "Una delle prime cose che ho scritto è che volevo dare un nome alla malattia. L'ho chiamata Lia. Non so bene perché, forse perché dare un nome a qualcosa lo rende meno informe, meno enorme. Lo rende qualcosa con cui puoi parlare, o almeno qualcosa che puoi fissare negli occhi.",
+      "Rileggendo, mi rendo conto che quella mossa strana, nominare il nemico, era già un modo per prendere il controllo di quello che non potevo controllare. Non la malattia in sé. Ma il rapporto che avevo con lei.",
+      "La parola che torna di più nel diario non è \"coraggio\" né \"speranza\". È noia.",
+      "La strada è lunga e aggiungerei noiosa. L'ho scritto così, quasi di passaggio, il mattino in cui iniziava la chemioterapia. E rileggendo adesso quella parola mi sembra la più vera di tutte. Perché tutti si aspettano che chi affronta una cosa del genere viva in uno stato di tensione permanente, di lotta epica contro il tempo. In realtà stai soprattutto ad aspettare. Aspetti le visite, aspetti i risultati, aspetti che passi la nausea, aspetti che arrivi qualcuno. E nel mezzo c'è una noia che ti pesa addosso come qualcosa di fisico.",
+      "Avrei potuto non scriverlo. Avrei potuto tenere solo le parti \"presentabili\". Ma era la verità, e la verità mi teneva in piedi.",
+      "C'è una frase che mi ha insegnato Lorenzo, il mio compagno di stanza, un uomo che era già più avanti di me nel percorso di cura e che osservavo come si osserva qualcuno che ha già attraversato il posto dove stai per andare tu. La frase era semplice:",
+      "è passato un altro giorno.",
+      "Non \"ce l'ho fatta\", non \"sono più forte\". Solo: è passato un altro giorno. All'inizio mi sembrava quasi nichilista. Col tempo ho capito che era l'unica unità di misura che aveva senso usare lì dentro.",
+      "Rileggere questo diario non è stato nostalgico. È stato strano, come guardare una versione di te stesso che riconosci ma che non sei più del tutto. Quella persona stava imparando, in tempo reale e senza manuale, come si sta dentro una cosa enorme senza farsi divorare.",
+      "Alcune cose le ho capite solo adesso, a distanza. Come il fatto che tenere su il morale non è uno stato d'animo, è un lavoro. Un lavoro continuo, che richiede sforzo e attenzione, e che come tutti i lavori migliora con la pratica.",
+      "O come il fatto che la rassegnazione, quella vera, non è arrendersi. È capire dove finisce il tuo controllo e smettere di sprecare energia a spingersi oltre quel confine. Non è debolezza, è precisione.",
+      "Ho deciso di pubblicare queste pagine perché penso che possano essere utili. Non come manuale, non come storia di redenzione. Ma come documento onesto di com'è stare dentro una cosa difficile senza edulcorarla.",
+      "Se stai attraversando qualcosa di simile, o se conosci qualcuno che ci sta passando, forse troverai qualcosa che riconosci. Forse no. In ogni caso, era troppo reale per tenerlo solo per me.",
+      "La scalata oggi non è ancora finita. Ma vale la pena raccontare com'erano e come sono i gradini, uno per uno."
+    ]
+  },
+  {
     slug: "un-giorno-qualunque-parte-1",
     date: "2024-11-14",
     title: "Un giorno qualunque (Parte 1)",
