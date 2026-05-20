@@ -1,6 +1,6 @@
 const { useState, useEffect } = React;
 
-const heroPoppies = "papaveri-hero.jpg";
+const heroPoppies = "assets/optimized/papaveri-hero.jpg";
 const COLORS = {
   slate: "var(--slate)",
   mint: "var(--mint)",
@@ -99,7 +99,7 @@ const POSTS = [
     tag: "dentro",
     accent: "var(--slate)",
     thumb: "papaveri",
-    image: "dallafinestradisegno.jpeg",
+    image: "assets/optimized/dallafinestradisegno.jpg",
     body: [
       "Qualche giorno fa ho ripreso in mano un file che non aprivo da un po'. Si chiama Sopravvissuto: La scalata. È un diario che ho tenuto durante i primi 47 giorni di ricovero in ospedale nell'estate del 2021, quando mi hanno diagnosticato una malattia che non avevo chiesto e che non avevo nessuna intenzione di accettare in silenzio.",
       "L'ho riletto tutto d'un fiato.",
@@ -129,7 +129,7 @@ const POSTS = [
     tag: "dentro",
     accent: "var(--orange)",
     thumb: "papaveri",
-    image: "lancia.png",
+    image: "assets/optimized/lancia.jpg",
     body: [
       "«Ricordate i poster con la frase “Oggi è il primo giorno del resto della tua vita”? È vero per tutti i giorni tranne uno: il giorno della tua morte!»",
       "Lester Burnham",
@@ -156,7 +156,7 @@ const POSTS = [
     tag: "dentro",
     accent: "var(--orange)",
     thumb: "macchina",
-    image: "chemio.png",
+    image: "assets/optimized/chemio.jpg",
     body: [
       "Settantadue ore.",
       "Io non sapevo nulla.",
@@ -199,7 +199,7 @@ const POSTS = [
     tag: "dentro",
     accent: "var(--mint)",
     thumb: "papaveri",
-    image: "offagna.png",
+    image: "assets/optimized/offagna.jpg",
     body: [
       "Il 2022 era appena iniziato. Dopo aver trascorso un Natale e un Capodanno sereni, vivevo la mia vita insieme alla mia compagna, che nel frattempo si era trasferita a casa mia. Suonavo i miei strumenti musicali, giocavo ai videogiochi, leggevo libri e, ovviamente, ascoltavo musica. Facevo regolarmente controlli e visite in ospedale: analisi del sangue a domicilio, visite settimanali e prelievi del midollo a cadenza mensile, che poi sarebbero diventati trimestrali. Pensavo solo a restare tranquillo. Onestamente, credo che senza di lei non ce l’avrei mai fatta ad affrontare la convalescenza.",
       "Uscivo poco. Tra il Covid che circolava e il freddo, mi rintanavo in casa, al caldo. Di tanto in tanto, nei giorni feriali e di prima mattina, andavamo a passeggiare al centro commerciale; se c’era il sole, ci limitavamo alla stradina sotto casa. Era meraviglioso sentire il calore della luce sul viso. Seguivo la dieta con tutte le restrizioni del caso: niente cibi crudi, verdure solo surgelate, quelle fresche avrei dovuto lavarle con l’Amuchina, col rischio di rovinarne il sapore. Mi nutrivo di pizza surgelata, Sofficini, minestroni pronti. Era limitante, ma non mi importava: ero felice di aver fatto il trapianto autologo e mi godevo la vita giorno per giorno. Avevo perso il senso del gusto per via di una pillola di mantenimento che dovevo prendere quotidianamente per tenere a bada la malattia che avevo sconfitto, ma nonostante questo tornai a giocare online con i miei amici e a comprare vestiti per prepararmi alla primavera e all’estate.",
@@ -227,7 +227,7 @@ const POSTS = [
     tag: "dentro",
     accent: "var(--slate)",
     thumb: "diagnosi",
-    image: "stanza.png",
+    image: "assets/optimized/stanza.jpg",
     body: [
       "Il 2023 era iniziato bene, vivevo la mia conquistata serenità apparente. Man mano che l’estate si avvicinava, mi piaceva andare con Francesca in qualche negozio a comprare vestiti in vista della bella stagione. Le visite in ospedale erano sempre meno frequenti, e le analisi del sangue andavano bene.",
       "Un giovedì di metà febbraio, verso le undici del mattino, ricevetti una telefonata dall’infermiera dell’ospedale: «La dottoressa vuole vederti, puoi passare verso le dodici e trenta.» «Certo!» risposi. Il mio presentimento, però, non era dei migliori.",
@@ -255,7 +255,7 @@ const POSTS = [
     excerpt: "Erano passati sei mesi dal trapianto allogenico. Febbraio 2024, e la comunicazione di recidiva sembrava lontana.",
     tag: "dentro",
     accent: "var(--slate)",
-    image: "torrette.png",
+    image: "assets/optimized/torrette.jpg",
     imagePosition: "center 25%",
     imageScale: 0.88,
     thumb: "macchina",
@@ -290,7 +290,7 @@ const ARGOMENTI_POSTS = [
     tag: "iniziare",
     accent: "var(--orange)",
     thumb: "appunti",
-    image: "assets/argomenti/iniziare.png",
+    image: "assets/optimized/argomenti/iniziare.jpg",
     body: [
       "Quello che cercavo era semplice: qualcuno che mi spiegasse cosa stava succedendo nel mio corpo, senza laurea in medicina come prerequisito. Non l'ho trovato, quindi ho deciso di scriverlo io.",
       "Non sono un medico e non voglio esserlo. Sono una persona che ha ricevuto una diagnosi di leucemia mieloide acuta e ha dovuto imparare in fretta un sacco di cose che non aveva mai voluto sapere. Quello che scrivo qui viene da quella esperienza: libri, conversazioni con i medici, domande fatte e rifatte, notti a capire cosa significava un termine che aveva sentito la mattina.",
@@ -306,7 +306,7 @@ const ARGOMENTI_POSTS = [
     tag: "capire",
     accent: "var(--slate)",
     thumb: "diagnosi",
-    image: "assets/argomenti/capire.png",
+    image: "assets/optimized/argomenti/capire.jpg",
     body: [
       "Questo non è un articolo scientifico. È quello che avrei voluto leggere io il giorno della diagnosi.",
       "## Cos'è, in parole normali",
@@ -334,7 +334,7 @@ const ARGOMENTI_POSTS = [
     tag: "ospedale",
     accent: "var(--mint)",
     thumb: "macchina",
-    image: "assets/argomenti/ospedale.png",
+    image: "assets/optimized/argomenti/ospedale.jpg",
     body: [
       "Una destinazione che non avreste scelto, ma che vi cambierà comunque la vita.",
       "## Come si arriva",
@@ -369,7 +369,7 @@ const ARGOMENTI_POSTS = [
     tag: "sopravvivere",
     accent: "var(--cream)",
     thumb: "appunti",
-    image: "assets/argomenti/sopravvivere.png",
+    image: "assets/optimized/argomenti/sopravvivere.jpg",
     body: [
       "Ho provato zenzero, meditazione e minacciare il mio stomaco. Il mio stomaco non negozia.",
       "La nausea da chemioterapia è uno degli effetti collaterali più odiati, non perché sia il più grave, ma perché non smette mai al momento giusto.",
@@ -397,7 +397,7 @@ const ARGOMENTI_POSTS = [
     tag: "mente",
     accent: "var(--slate)",
     thumb: "appunti",
-    image: "assets/argomenti/mente.png",
+    image: "assets/optimized/argomenti/mente.jpg",
     body: [
       "Non ho iniziato a leggere di più perché sono diventato più saggio. Ho iniziato perché avevo bisogno di mettere la testa da qualche parte che non fosse il soffitto della stanza d'ospedale.",
       "Questi quattro libri, in momenti diversi, hanno fatto esattamente questo.",
@@ -420,6 +420,14 @@ const ARGOMENTI_POSTS = [
 
 const MONTHS = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
 
+const SOCIAL_LINKS = [
+  ["Instagram", "https://instagram.com/frank_pw", "fa-brands fa-instagram"],
+  ["X", "https://x.com/frank_pw", "fa-brands fa-x-twitter"],
+  ["Facebook", "https://facebook.com/frank_pw", "fa-brands fa-facebook"],
+  ["Threads", "https://threads.net/@frank_pw", "fa-brands fa-threads"],
+  ["Telegram", "https://t.me/frank_pw1", "fa-brands fa-telegram"],
+];
+
 function fmtDate(iso) {
   const d = new Date(`${iso}T00:00:00`);
   return `${String(d.getDate()).padStart(2, "0")} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
@@ -427,6 +435,25 @@ function fmtDate(iso) {
 
 function tagColor() {
   return "var(--orange)";
+}
+
+function SocialLinks({ className = "", buttonClassName = "" }) {
+  return (
+    <div className={`contacts-icons flex flex-wrap items-center gap-3 ${className}`}>
+      {SOCIAL_LINKS.map(([label, url, icon]) => (
+        <a
+          key={label}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`social-btn flex h-9 w-9 items-center justify-center border no-underline ${buttonClassName}`}
+          aria-label={label}
+        >
+          <i className={`${icon} text-[17px]`} />
+        </a>
+      ))}
+    </div>
+  );
 }
 
 function parseHash() {
@@ -594,26 +621,7 @@ function Home() {
               mi trovi qui, senza moduli e senza passaggi intermedi.
             </p>
           </div>
-          <div className="contacts-icons flex flex-wrap items-center gap-3 sm:justify-end">
-            {[
-              ["Instagram", "https://instagram.com/frank_pw", "fa-brands fa-instagram"],
-              ["X", "https://x.com/frank_pw", "fa-brands fa-x-twitter"],
-              ["Facebook", "https://facebook.com/frank_pw", "fa-brands fa-facebook"],
-              ["Threads", "https://threads.net/@frank_pw", "fa-brands fa-threads"],
-              ["Telegram", "https://t.me/frank_pw1", "fa-brands fa-telegram"],
-            ].map(([label, url, icon]) => (
-              <a
-                key={label}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-btn flex h-9 w-9 items-center justify-center border border-white/25 text-white no-underline"
-                aria-label={label}
-              >
-                <i className={`${icon} text-[17px]`} />
-              </a>
-            ))}
-          </div>
+          <SocialLinks className="sm:justify-end" buttonClassName="border-white/25 text-white" />
         </div>
       </section>
     </main>
@@ -816,7 +824,13 @@ function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti
           })}
         </div>
 
-        <div className="mt-14 border-t border-dashed border-[var(--line)] pt-6 text-[15px]">Francesco</div>
+        <section className="mt-14 flex flex-col gap-4 border-t border-[var(--line)] pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div className="font-display text-xl leading-tight text-[var(--ink)]">Link</div>
+            <div className="mt-1 text-[13px] text-[var(--muted)]">mi trovi anche qui</div>
+          </div>
+          <SocialLinks buttonClassName="border-[var(--line)] text-[var(--ink)]" />
+        </section>
 
         <nav className="mt-14 grid gap-4 sm:mt-16 sm:grid-cols-2">
           <div>
