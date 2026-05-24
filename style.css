@@ -117,10 +117,13 @@ a:focus-visible {
     --home-hero-base-y: -25%;
   }
 
-  .home-hero .home-post-grid {
+  .home-hero .home-post-area {
     position: relative !important;
     bottom: auto !important;
-    max-height: none;
+  }
+
+  .home-hero .home-post-grid {
+    max-height: 38svh;
   }
 
   .home-post-grid .glass-card {
@@ -140,6 +143,29 @@ a:focus-visible {
 
 .glass-card:hover {
   background: rgba(255, 255, 255, 0.28);
+}
+
+.home-post-grid {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.46) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.home-post-grid::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.home-post-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.home-post-grid::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.home-show-more {
+  border-radius: 0;
 }
 
 .blog-row {

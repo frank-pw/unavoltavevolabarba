@@ -90,7 +90,7 @@ function Thumb({ type, image, imagePosition, imageScale }) {
   );
 }
 
-const POSTS = [
+const BLOG_POSTS = [
   {
     slug: "sopravvissuto-rileggendo-la-scalata",
     date: "2026-05-20",
@@ -418,6 +418,8 @@ const ARGOMENTI_POSTS = [
   }
 ].sort((a, b) => new Date(b.date) - new Date(a.date));
 
+const POSTS = [...BLOG_POSTS, ...ARGOMENTI_POSTS].sort((a, b) => new Date(b.date) - new Date(a.date));
+
 const MONTHS = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
 
 const SOCIAL_LINKS = [
@@ -461,8 +463,8 @@ function parseHash() {
   if (parts.length === 0) return { route: "home" };
   if (parts[0] === "blog" && parts[1]) return { route: "post", slug: parts[1] };
   if (parts[0] === "blog") return { route: "blog" };
-  if (parts[0] === "argomenti" && parts[1]) return { route: "argomento-post", slug: parts[1] };
-  if (parts[0] === "argomenti") return { route: "argomenti" };
+  if (parts[0] === "argomenti" && parts[1]) return { route: "post", slug: parts[1] };
+  if (parts[0] === "argomenti") return { route: "blog" };
   if (parts[0] === "chi-sono" || parts[0] === "info") return { route: "chi-sono" };
   if (parts[0] === "contact") return { route: "contact" };
   return { route: "home" };
@@ -490,7 +492,7 @@ function NavBar({ route, theme }) {
     dark ? "text-white/95 drop-shadow" : "text-[var(--muted)]"
   }`;
   const activeClass = dark ? "text-white underline underline-offset-4 decoration-1" : "text-[var(--ink)] underline underline-offset-4 decoration-1";
-  const isActive = (name) => route === name || (name === "blog" && route === "post") || (name === "argomenti" && route === "argomento-post");
+  const isActive = (name) => route === name || (name === "blog" && route === "post");
 
   return (
     <header className={`fixed left-0 right-0 top-0 z-10 flex flex-col items-start gap-3 px-4 py-4 pointer-events-none sm:flex-row sm:items-center sm:justify-between sm:px-9 sm:py-7 ${dark ? "" : "bg-[rgba(250,248,239,0.96)] backdrop-blur-sm"}`}>
@@ -500,7 +502,6 @@ function NavBar({ route, theme }) {
       <nav className="flex flex-wrap gap-x-4 gap-y-2 pointer-events-auto sm:gap-7">
         {[
           ["#/", "Home", "home"],
-          ["#/argomenti", "Argomenti", "argomenti"],
           ["#/blog", "Blog", "blog"],
           ["#/chi-sono", "Chi Sono", "chi-sono"]
         ].map(([href, label, name]) => (
@@ -516,6 +517,7 @@ function NavBar({ route, theme }) {
 function Home() {
   const contactsRef = React.useRef(null);
   const heroImageRef = React.useRef(null);
+  const homePosts = POSTS.slice(0, 5);
 
   React.useEffect(() => {
     const el = contactsRef.current;
@@ -585,13 +587,14 @@ function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-[220px] bg-gradient-to-b from-transparent to-[#141414]" />
 
-        <section className="home-post-grid absolute bottom-8 left-0 right-0 z-10 grid max-h-[46svh] gap-3 overflow-visible p-3 sm:bottom-12 sm:max-h-none sm:grid-cols-2 sm:p-6 lg:grid-cols-4">
+        <section className="home-post-area absolute bottom-8 left-0 right-0 z-10 sm:bottom-12">
+          <div className="home-post-grid mx-auto flex max-h-[38svh] w-full max-w-[560px] flex-col gap-3 overflow-x-hidden overflow-y-auto p-3 md:max-h-none md:max-w-full md:snap-x md:snap-mandatory md:flex-row md:overflow-x-auto md:overflow-y-hidden md:p-6">
           
-         {POSTS.slice(0, 4).map((post) => (
+         {homePosts.map((post) => (
             <a
               key={post.slug}
               href={`#/blog/${post.slug}`}
-              className="post-card glass-card flex min-h-[88px] items-stretch gap-3 p-3 text-white no-underline sm:min-h-24"
+              className="post-card glass-card flex min-h-[88px] w-full flex-none items-stretch gap-3 p-3 text-white no-underline sm:min-h-24 md:w-[360px] md:snap-start lg:w-[calc((100vw-96px)/5)]"
             >
               <div
                 className="h-16 w-16 flex-shrink-0 overflow-hidden sm:h-[72px] sm:w-[72px]"
@@ -610,6 +613,17 @@ function Home() {
               </div>
             </a>
           ))}
+          </div>
+          {POSTS.length > homePosts.length && (
+            <div className="flex justify-center px-3 sm:px-6">
+              <a
+                href="#/blog"
+                className="home-show-more font-display border border-white/30 bg-black/30 px-4 py-2 text-sm text-white no-underline backdrop-blur transition hover:bg-white/20"
+              >
+                Mostra altri
+              </a>
+            </div>
+          )}
         </section>
       </section>
 
@@ -709,55 +723,6 @@ function BlogList() {
         <section>
           {filtered.map((post, index) => (
             <PostRow key={post.slug} post={post} index={index} href={`#/blog/${post.slug}`} />
-          ))}
-          <div className="border-t border-[var(--line)]" />
-        </section>
-      </div>
-    </main>
-  );
-}
-
-function Argomenti() {
-  const [selectedTag, setSelectedTag] = useState(null);
-
-  const allTags = [...new Set(ARGOMENTI_POSTS.map((p) => p.tag))];
-  const filtered = selectedTag ? ARGOMENTI_POSTS.filter((p) => p.tag === selectedTag) : ARGOMENTI_POSTS;
-
-  return (
-    <main className="page-fade min-h-screen bg-[var(--paper)] pt-[132px] sm:pt-[110px]">
-      <div className="mx-auto max-w-[980px] px-4 pb-24 sm:px-9 sm:pb-28">
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <h1 className="font-display mb-2 text-[clamp(40px,13vw,56px)] leading-none">Argomenti</h1>
-            <p className="mb-10 max-w-xl text-sm leading-relaxed text-[var(--muted)] sm:mb-14">
-              una sezione separata dal blog per articoli dedicati.<br className="hidden sm:block" />
-              stesso impianto, contenuti diversi.
-            </p>
-          </div>
-
-          <div className="shrink-0 pt-2 text-left sm:text-right">
-            <div className="mb-3 text-[11px] uppercase tracking-widest text-[var(--soft-muted)]">Filtra</div>
-            <div className="flex flex-wrap gap-3 sm:flex-col sm:items-end sm:gap-2">
-              {allTags.map((tag) => {
-                const active = selectedTag === tag;
-                return (
-                  <button
-                    key={tag}
-                    onClick={() => setSelectedTag(active ? null : tag)}
-                    className="font-display cursor-pointer border-0 bg-transparent p-0 text-left text-[15px] lowercase transition-opacity sm:text-right"
-                    style={{ color: tagColor(tag), opacity: active ? 1 : 0.7 }}
-                  >
-                    {active ? "→ " : ""}{tag}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        <section>
-          {filtered.map((post, index) => (
-            <PostRow key={post.slug} post={post} index={index} href={`#/argomenti/${post.slug}`} />
           ))}
           <div className="border-t border-[var(--line)]" />
         </section>
@@ -948,8 +913,6 @@ function App() {
 
   if (route.route === "blog") page = <BlogList />;
   if (route.route === "post") page = <BlogPost slug={route.slug} />;
-  if (route.route === "argomenti") page = <Argomenti />;
-  if (route.route === "argomento-post") page = <BlogPost slug={route.slug} posts={ARGOMENTI_POSTS} basePath="#/argomenti" backLabel="tutti gli argomenti" />;
   if (route.route === "chi-sono") page = <ChiSono />;
   if (route.route === "contact") page = <Contact />;
 
