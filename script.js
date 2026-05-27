@@ -301,7 +301,7 @@ const ARGOMENTI_POSTS = [
   {
     slug: "la-diagnosi-spiegata",
     date: "2025-05-10",
-    title: "La diagnosi spiegata a chi non capisce la medicina",
+    title: "La diagnosi spiegata a chi come me non capisce la medicina",
     excerpt: "Un modo più umano per capire leucemia mieloide acuta, midollo, blasti, esami e primi giorni dopo la diagnosi.",
     tag: "capire",
     accent: "var(--slate)",
@@ -660,7 +660,7 @@ function PostRow({ post, index, href }) {
             {fmtDate(post.date)} · <span style={{ color: tagColor(post.tag) }}>{post.tag}</span>
           </div>
           <h2 className={`font-display mb-1 leading-tight ${post.slug === "un-giorno-qualunque-parte-1" ? "post-title-single-line" : "text-[clamp(19px,6vw,24px)]"}`}>{post.title}</h2>
-          <p className="line-clamp-2 text-[13px] leading-relaxed text-[var(--body)]">{post.excerpt}</p>
+          <p className="font-article line-clamp-2 text-[13px] leading-relaxed text-[var(--body)]">{post.excerpt}</p>
         </div>
       </div>
       {/* Desktop */}
@@ -674,7 +674,7 @@ function PostRow({ post, index, href }) {
         </div>
         <div>
           <h2 className={`font-display mb-2 leading-tight ${post.slug === "un-giorno-qualunque-parte-1" ? "post-title-single-line" : "text-3xl"}`}>{post.title}</h2>
-          <p className="max-w-xl text-sm leading-relaxed text-[var(--body)]">{post.excerpt}</p>
+          <p className="font-article max-w-xl text-sm leading-relaxed text-[var(--body)]">{post.excerpt}</p>
         </div>
         <div className="font-display pt-2 text-right text-sm">LEGGI &rarr;</div>
       </div>
@@ -764,7 +764,7 @@ function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti
 
         <h1 className={`font-display mb-8 leading-tight sm:mb-10 ${post.slug === "un-giorno-qualunque-parte-1" ? "post-title-article-single-line" : "[overflow-wrap:anywhere] text-[clamp(32px,10vw,56px)]"}`}>{post.title}</h1>
 
-        <div className="text-[15px] leading-7 text-[var(--body)] sm:text-base sm:leading-8">
+        <div className="font-article text-[15px] leading-7 text-[var(--body)] sm:text-base sm:leading-8">
           {post.body.map((paragraph, i) => {
             if (paragraph.startsWith("## ")) {
               return (
