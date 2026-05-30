@@ -92,6 +92,28 @@ function Thumb({ type, image, imagePosition, imageScale }) {
 
 const BLOG_POSTS = [
   {
+    slug: "la-serenita-non-e-un-pronto-soccorso",
+    date: "2026-05-30",
+    title: "La serenità non è un pronto soccorso",
+    excerpt: "Quando sei in crisi trovi le risorse, ma la serenità non dovrebbe arrivare solo in emergenza.",
+    tag: "dentro",
+    accent: "var(--mint)",
+    thumb: "appunti",
+    image: "assets/optimized/la-serenita-non-e-un-pronto-soccorso.jpg",
+    body: [
+      "C'è una cosa che ho imparato stando male: quando sei in crisi, trovi le risorse. Le cerchi, le scavi, le costruisci. Improvvisamente mediti, leggi, scrivi, respiri. Ti alleni a stare bene perché non hai altra scelta.",
+      "Poi la tempesta passa.",
+      "E smetti.",
+      "Torni alla vita normale, quella in cui non hai bisogno di stare bene attivamente, perché stare bene sembra lo stato di default. Abbandoni la ricerca. Ti adagi. Ce la fai andare così.",
+      "Ho pensato a lungo perché succede. E ho capito che trattiamo la serenità come un pronto soccorso: la chiami solo quando hai un'emergenza. Nel frattempo, aspetta seduta in sala d'attesa.",
+      "Ma la mente non funziona così. Non è un sistema di emergenza. È un muscolo.",
+      "E i muscoli si allenano tutti i giorni, anche, specialmente nei giorni in cui non hai un motivo urgente per farlo. Non perché qualcosa stia andando storto. Perché vuoi che qualcosa vada bene. Sempre. Non solo quando sei costretto.",
+      "La leucemia mi ha insegnato questa cosa nel modo più rumoroso possibile. Ma non volevo che fosse l'unica maestra.",
+      "Così ho smesso di aspettare la prossima tempesta per tornare a cercarmi.",
+      "Quanto sono belli i giorni in cui non hai bisogno di coraggio, ma lo alleni lo stesso."
+    ]
+  },
+  {
     slug: "sopravvissuto-rileggendo-la-scalata",
     date: "2026-05-20",
     title: "Sopravvissuto: rileggendo la scalata",
