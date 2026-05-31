@@ -96,7 +96,7 @@ const BLOG_POSTS = [
     date: "2026-05-30",
     title: "La serenità non è un pronto soccorso",
     excerpt: "Quando sei in crisi trovi le risorse, ma la serenità non dovrebbe arrivare solo in emergenza.",
-    tag: "dentro",
+    tag: "mente",
     accent: "var(--mint)",
     thumb: "appunti",
     image: "assets/optimized/la-serenita-non-e-un-pronto-soccorso.jpg",
