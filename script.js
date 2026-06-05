@@ -92,6 +92,29 @@ function Thumb({ type, image, imagePosition, imageScale }) {
 
 const BLOG_POSTS = [
   {
+    slug: "i-libri-che-non-ho-ancora-letto",
+    date: "2026-06-05",
+    title: "I libri che non ho ancora letto",
+    excerpt: "Una lista infinita di libri da leggere come promemoria gentile di tutto quello che resta da scoprire.",
+    tag: "mente",
+    accent: "var(--cream)",
+    thumb: "appunti",
+    image: "assets/optimized/i-libri-che-non-ho-ancora-letto.svg",
+    body: [
+      "Ho una lista di libri da leggere che non finisce mai.",
+      "Non perché non legga. Ma perché ogni volta che finisco un libro, ne aggiungo tre. È una matematica che non torna, e non ci tengo che torni.",
+      "Sul comodino ho Shantaram. Ci sono 944 pagine. Lo guardo ogni sera prima di spegnere la luce, gli dico che è per domani, e spengo la luce.",
+      "Domani non arriva mai, per Shantaram.",
+      "Ho letto da qualche parte che Umberto Eco chiamava la sua biblioteca personale un'antibiblioteca: non un archivio di ciò che sai, ma un promemoria di ciò che non sai ancora. I libri non letti non sono un fallimento. Sono una forma di ottimismo.",
+      "Mi è piaciuta quella cosa.",
+      "Perché una lista lunga significa che ci aspetti qualcosa dal futuro. Significa che hai ancora voglia di essere sorpreso, cambiato, spostato da qualche parte che ancora non conosci. Significa che credi di avere tempo.",
+      "La lista dei libri da leggere è, in fondo, un atto di fede.",
+      "Io la mia ce l'ho. È lunga. Disordinata. Piena di titoli che non ricordo più perché li ho aggiunti.",
+      "E ogni tanto la guardo, e mi sembra una cosa bella avere ancora così tanta roba da scoprire.",
+      "Forse il libro migliore è sempre quello che non hai ancora aperto."
+    ]
+  },
+  {
     slug: "la-serenita-non-e-un-pronto-soccorso",
     date: "2026-05-30",
     title: "La serenità non è un pronto soccorso",
@@ -480,6 +503,69 @@ function SocialLinks({ className = "", buttonClassName = "" }) {
   );
 }
 
+function ShareButton({ post }) {
+  const [status, setStatus] = useState("");
+
+  const copyLink = async (url) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(url);
+      return;
+    }
+
+    const textarea = document.createElement("textarea");
+    textarea.value = url;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.top = "-999px";
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+  };
+
+  const onShare = async () => {
+    const shareUrl = window.location.href;
+    const shareData = {
+      title: post.title,
+      text: post.excerpt,
+      url: shareUrl
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        return;
+      }
+
+      await copyLink(shareUrl);
+      setStatus("link copiato");
+      window.setTimeout(() => setStatus(""), 1800);
+    } catch (error) {
+      if (error?.name === "AbortError") return;
+
+      await copyLink(shareUrl);
+      setStatus("link copiato");
+      window.setTimeout(() => setStatus(""), 1800);
+    }
+  };
+
+  return (
+    <div className="mb-9 flex items-center gap-3 sm:mb-10">
+      <button
+        type="button"
+        className="share-btn font-display inline-flex items-center gap-2 border border-[var(--line)] bg-transparent px-4 py-2 text-[15px] text-[var(--ink)] transition hover:bg-[rgba(20,20,20,0.04)]"
+        onClick={onShare}
+      >
+        <i className="fa-solid fa-share-nodes text-[14px]" />
+        <span>Condividi</span>
+      </button>
+      <span className={`share-status text-[13px] text-[var(--muted)] ${status ? "is-visible" : ""}`} aria-live="polite">
+        {status}
+      </span>
+    </div>
+  );
+}
+
 function parseHash() {
   const parts = (window.location.hash || "#/").replace(/^#/, "").split("/").filter(Boolean);
   if (parts.length === 0) return { route: "home" };
@@ -784,7 +870,9 @@ function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti
           </span>
         </div>
 
-        <h1 className={`font-display mb-8 leading-tight sm:mb-10 ${post.slug === "un-giorno-qualunque-parte-1" ? "post-title-article-single-line" : "[overflow-wrap:anywhere] text-[clamp(32px,10vw,56px)]"}`}>{post.title}</h1>
+        <h1 className="font-display mb-6 text-[clamp(32px,10vw,56px)] leading-tight [overflow-wrap:anywhere] sm:mb-7">{post.title}</h1>
+
+        <ShareButton post={post} />
 
         <div className="font-article text-[15px] leading-7 text-[var(--body)] sm:text-base sm:leading-8">
           {post.body.map((paragraph, i) => {
