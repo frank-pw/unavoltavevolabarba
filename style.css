@@ -1,7 +1,7 @@
 :root {
   --font-display: "Jost", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-article: "Courier Prime", "Courier New", Courier, monospace;
+  --font-article: "JetBrains Mono", "Courier Prime", "Courier New", Courier, monospace;
   --slate: #9299B2;
   --mint: #D8F5E5;
   --orange: #E85F00;

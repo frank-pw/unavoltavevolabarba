@@ -92,6 +92,28 @@ function Thumb({ type, image, imagePosition, imageScale }) {
 
 const BLOG_POSTS = [
   {
+    slug: "una-volta-sola",
+    date: "2026-06-14",
+    title: "Una volta sola",
+    excerpt: "Ichigo ichie, una tazza di tè e il promemoria gentile che questo momento non tornerà uguale.",
+    tag: "mente",
+    accent: "var(--mint)",
+    thumb: "appunti",
+    image: "assets/optimized/una-volta-sola.svg",
+    body: [
+      "I giapponesi hanno un'espressione: *ichigo ichie*. Vuol dire, più o meno, \"questo momento, una volta sola\".",
+      "L'idea è semplice. Ogni incontro, ogni tazza di tè, ogni conversazione, succede una volta e poi non succede più. Non esattamente uguale. Non con le stesse persone, nello stesso stato d'animo, nello stesso punto della vita.",
+      "Quando ero in ospedale, questa cosa la sentivo nel corpo.",
+      "Non come concetto. Come peso.",
+      "Ogni visita era unica. Ogni telefonata aveva un sapore diverso. Ogni mattina in cui aprivo gli occhi era la prima mattina dopo quella notte lì, con quelle analisi. Non una mattina generica. Quella.",
+      "*Ichigo ichie* non è una filosofia per i monaci. È una correzione di rotta per chi come me ha la memoria corta quando sta bene.",
+      "Ogni tanto mi fermo. Guardo quello che c'è. Non per essere grato, quella parola mi è sempre sembrata un po' pesante, ma per essere *presente*. Per riconoscere che questo momento, questo esatto momento, non tornerà.",
+      "Non ho bisogno della leucemia per ricordarmelo.",
+      "Ho solo bisogno di smettere di guardare il telefono mentre bevo il tè.",
+      "*Una tazza alla volta. Una volta sola.*"
+    ]
+  },
+  {
     slug: "i-libri-che-non-ho-ancora-letto",
     date: "2026-06-05",
     title: "I libri che non ho ancora letto",
@@ -839,6 +861,18 @@ function BlogList() {
   );
 }
 
+function renderInlineText(text) {
+  const parts = text.split(/(\*[^*]+\*)/g);
+
+  return parts.map((part, index) => {
+    if (part.startsWith("*") && part.endsWith("*")) {
+      return <em key={index}>{part.slice(1, -1)}</em>;
+    }
+
+    return part;
+  });
+}
+
 function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti i post" }) {
   const index = posts.findIndex((post) => post.slug === slug);
   const post = posts[index];
@@ -887,15 +921,15 @@ function BlogPost({ slug, posts = POSTS, basePath = "#/blog", backLabel = "tutti
             if (i === 0 && paragraph.startsWith("«")) {
               return (
                 <blockquote key={i} className="mb-8 border-l-2 border-[var(--poppy)] pl-4 text-lg leading-relaxed text-[var(--ink)] sm:pl-5 sm:text-xl">
-                  <p className="mb-3">{paragraph}</p>
-                  {post.body[i + 1] && <cite className="block text-sm not-italic text-[var(--muted)]">{post.body[i + 1]}</cite>}
+                  <p className="mb-3">{renderInlineText(paragraph)}</p>
+                  {post.body[i + 1] && <cite className="block text-sm not-italic text-[var(--muted)]">{renderInlineText(post.body[i + 1])}</cite>}
                 </blockquote>
               );
             }
 
             if (i === 1 && post.body[0]?.startsWith("«")) return null;
 
-            return <p key={i} className="mb-6">{paragraph}</p>;
+            return <p key={i} className="mb-6">{renderInlineText(paragraph)}</p>;
           })}
         </div>
 
