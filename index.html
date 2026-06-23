@@ -274,9 +274,8 @@
       const observer = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting && !started) {
           started = true;
-          build();
-          raf = requestAnimationFrame(tick);
           observer.disconnect();
+          document.fonts.ready.then(() => { build(); raf = requestAnimationFrame(tick); });
         }
       }, { threshold: 0.1 });
       observer.observe(canvas);
@@ -314,86 +313,88 @@
     canvas.height = window.innerHeight;
     const W = canvas.width, H = canvas.height;
 
-    /* campiona i pixel del testo "unavoltavevolabarba" */
-    const off  = document.createElement('canvas');
-    off.width  = W; off.height = H;
-    const octx = off.getContext('2d');
-    let fs = Math.min(W / 10, 90);
-    octx.font = `700 ${fs}px "Space Mono", monospace`;
-    const mw = octx.measureText('unavoltavevolabarba').width;
-    if (mw > W * 0.88) {
-      fs *= (W * 0.88) / mw;
-      octx.font = `700 ${fs}px "Space Mono", monospace`;
-    }
-    octx.fillStyle    = '#fff';
-    octx.textAlign    = 'center';
-    octx.textBaseline = 'middle';
-    octx.fillText('unavoltavevolabarba', W / 2, H * 0.52);
-
-    const data = octx.getImageData(0, 0, W, H).data;
-    const gap  = Math.max(3, Math.round(W / 380));
-    const targets = [];
-    for (let y = 0; y < H; y += gap)
-      for (let x = 0; x < W; x += gap)
-        if (data[(y * W + x) * 4 + 3] > 128) targets.push([x, y]);
-
-    /* particelle: partono dall'alto in caduta libera */
-    const parts = targets.map(([ox, oy]) => ({
-      ox, oy,
-      x:  ox + (Math.random() - 0.5) * 30,
-      y:  -(H * (0.1 + Math.random() * 1.8)),
-      vx: (Math.random() - 0.5) * 0.8,
-      vy: 1.2 + Math.random() * 2.8,
-      size: Math.random() * 1.2 + 0.4,
-      phase: 'fall',
-    }));
-
     let raf = 0;
-
-    function tick() {
-      ctx.fillStyle = 'rgba(0,0,0,0.18)';
-      ctx.fillRect(0, 0, W, H);
-
-      for (const p of parts) {
-        const dx = p.ox - p.x, dy = p.oy - p.y;
-
-        if (p.phase === 'fall') {
-          p.vy += 0.20;
-          p.vx += dx * 0.0015;
-          p.vy  = Math.min(p.vy, 14);
-          if (p.y >= p.oy - 12) p.phase = 'spring';
-        } else if (p.phase === 'spring') {
-          p.vx += dx * 0.13;
-          p.vy += dy * 0.13;
-          p.vx *= 0.72;
-          p.vy *= 0.72;
-          if (Math.abs(dx) < 0.3 && Math.abs(dy) < 0.3 &&
-              Math.abs(p.vx) < 0.06 && Math.abs(p.vy) < 0.06) {
-            p.phase = 'done';
-          }
-        }
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.y < -8 || p.y > H + 8) continue;
-
-        const speed = Math.hypot(p.vx, p.vy);
-        const alpha = p.phase === 'done' ? 0.85 : Math.min(1, 0.3 + speed * 0.06);
-        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-        ctx.fillRect(p.x, p.y, p.size, p.size);
-      }
-
-      raf = requestAnimationFrame(tick);
-    }
 
     function dismiss() {
       intro.classList.add('hidden');
       setTimeout(() => { cancelAnimationFrame(raf); intro.remove(); }, 900);
     }
 
-    tick();
-    setTimeout(dismiss, 4000);
+    document.fonts.ready.then(() => {
+      /* campiona i pixel del testo "unavoltavevolabarba" */
+      const off  = document.createElement('canvas');
+      off.width  = W; off.height = H;
+      const octx = off.getContext('2d');
+      let fs = Math.min(W / 10, 90);
+      octx.font = `700 ${fs}px "Space Mono", monospace`;
+      const mw = octx.measureText('unavoltavevolabarba').width;
+      if (mw > W * 0.88) {
+        fs *= (W * 0.88) / mw;
+        octx.font = `700 ${fs}px "Space Mono", monospace`;
+      }
+      octx.fillStyle    = '#fff';
+      octx.textAlign    = 'center';
+      octx.textBaseline = 'middle';
+      octx.fillText('unavoltavevolabarba', W / 2, H * 0.52);
+
+      const data = octx.getImageData(0, 0, W, H).data;
+      const gap  = Math.max(3, Math.round(W / 380));
+      const targets = [];
+      for (let y = 0; y < H; y += gap)
+        for (let x = 0; x < W; x += gap)
+          if (data[(y * W + x) * 4 + 3] > 128) targets.push([x, y]);
+
+      /* particelle: partono dall'alto in caduta libera */
+      const parts = targets.map(([ox, oy]) => ({
+        ox, oy,
+        x:  ox + (Math.random() - 0.5) * 30,
+        y:  -(H * (0.1 + Math.random() * 1.8)),
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: 1.2 + Math.random() * 2.8,
+        size: Math.random() * 1.2 + 0.4,
+        phase: 'fall',
+      }));
+
+      function tick() {
+        ctx.fillStyle = 'rgba(0,0,0,0.18)';
+        ctx.fillRect(0, 0, W, H);
+
+        for (const p of parts) {
+          const dx = p.ox - p.x, dy = p.oy - p.y;
+
+          if (p.phase === 'fall') {
+            p.vy += 0.20;
+            p.vx += dx * 0.0015;
+            p.vy  = Math.min(p.vy, 14);
+            if (p.y >= p.oy - 12) p.phase = 'spring';
+          } else if (p.phase === 'spring') {
+            p.vx += dx * 0.13;
+            p.vy += dy * 0.13;
+            p.vx *= 0.72;
+            p.vy *= 0.72;
+            if (Math.abs(dx) < 0.3 && Math.abs(dy) < 0.3 &&
+                Math.abs(p.vx) < 0.06 && Math.abs(p.vy) < 0.06) {
+              p.phase = 'done';
+            }
+          }
+
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.y < -8 || p.y > H + 8) continue;
+
+          const speed = Math.hypot(p.vx, p.vy);
+          const alpha = p.phase === 'done' ? 0.85 : Math.min(1, 0.3 + speed * 0.06);
+          ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+          ctx.fillRect(p.x, p.y, p.size, p.size);
+        }
+
+        raf = requestAnimationFrame(tick);
+      }
+
+      tick();
+      setTimeout(dismiss, 4000);
+    });
   })();
   </script>
 </body>
