@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>unavoltavevolabarba | Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Adelle Sans (corpo), Space Mono (mono) — Inter rimane fallback fino ad attivazione Adobe Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script>tailwind={config:{corePlugins:{preflight:false},theme:{screens:{sm:'480px',md:'768px',lg:'1024px',xl:'1280px'}}}}</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="nav.js?v=4" defer></script>
+  <script src="site-share.js" defer></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --white-dim: rgba(255,255,255,0.5);
+      --white-faint: rgba(255,255,255,0.15);
+      --font-body: 'Adelle Sans', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+    }
+
+    html, body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── INTRO SCREEN ─── */
+    #intro {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: opacity 0.8s ease;
+    }
+
+    #intro.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Particle canvas */
+    #particle-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ─── MAIN CONTENT ─── */
+    main {
+      padding-bottom: 140px;
+    }
+
+    /* ─── HERO COVER ─── */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 100svh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: clamp(32px, 6vw, 72px) clamp(24px, 6vw, 72px);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      filter: brightness(0.72);
+      animation: hero-drift 20s ease-in-out infinite alternate;
+      will-change: transform;
+      transform-origin: center center;
+    }
+
+    @keyframes hero-drift {
+      from { transform: scale(1.06) translate(0%, 0%); }
+      to   { transform: scale(1.10) translate(-2%, 1%); }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(0,0,0,0.08) 0%,
+        rgba(0,0,0,0.0)  35%,
+        rgba(0,0,0,0.72) 100%
+      );
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 9vw, 7.5rem);
+      font-weight: 700;
+      line-height: 0.93;
+      letter-spacing: -0.04em;
+      color: var(--white);
+    }
+
+
+
+    /* ─── PARTICLE FIELD ─── */
+    .particle-section {
+      padding: 120px 0 0;
+    }
+
+    #particle-field {
+      display: block;
+      width: 100%;
+      height: clamp(260px, 40vw, 520px);
+      cursor: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- INTRO SCREEN -->
+  <div id="intro">
+    <canvas id="particle-canvas"></canvas>
+  </div>
+
+  <!-- MAIN -->
+  <main>
+    <div class="hero">
+      <img src="assets/instagram/frank_pw_7.jpg" alt="" class="hero-bg">
+      <div class="hero-overlay"></div>
+    </div>
+
+    <section class="particle-section max-md:!pt-[60px]" id="about">
+      <canvas id="particle-field" aria-hidden="true"></canvas>
+    </section>
+
+    <script>
+    (function () {
+      const canvas = document.getElementById('particle-field');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let particles = [], raf = 0, cw = 0, ch = 0;
+      const pointer = { x: -9999, y: -9999 };
+
+      function build() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        cw = canvas.clientWidth;
+        ch = canvas.clientHeight;
+        const w = cw, h = ch;
+        canvas.width  = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        /* ── sample text into pixel targets ── */
+        const off  = document.createElement('canvas');
+        off.width  = w; off.height = h;
+        const octx = off.getContext('2d');
+        const text = 'unavoltavevolabarba';
+        let fontSize = Math.min(w / 8.8, 160);
+        octx.fillStyle    = '#fff';
+        octx.textAlign    = 'center';
+        octx.textBaseline = 'middle';
+        octx.font = `700 ${fontSize}px "Space Mono", monospace`;
+        const mw = octx.measureText(text).width;
+        if (mw > w * 0.88) {
+          fontSize *= (w * 0.88) / mw;
+          octx.font = `700 ${fontSize}px "Space Mono", monospace`;
+        }
+        /* draw low enough that rain has room to fall */
+        octx.fillText(text, w / 2, h * 0.68);
+
+        const data = octx.getImageData(0, 0, w, h).data;
+        const gap  = Math.max(4, Math.round(w / 300));
+
+        const next = [];
+        for (let y = 0; y < h; y += gap) {
+          for (let x = 0; x < w; x += gap) {
+            if (data[(y * w + x) * 4 + 3] > 128) {
+              next.push({
+                ox: x, oy: y,
+                /* start each particle above the canvas at a random height */
+                x: x + (Math.random() - 0.5) * 40,
+                y: -(h * (0.1 + Math.random() * 2.2)),
+                vx: (Math.random() - 0.5) * 1.2,
+                vy: 0.8 + Math.random() * 2.4,
+                size: Math.random() * 1.4 + 0.5,
+                phase: 'fall',   /* fall → spring → done */
+              });
+            }
+          }
+        }
+        particles = next;
+      }
+
+      function tick() {
+        const w = cw, h = ch;
+        const px = pointer.x, py = pointer.y;
+        const R  = 110;
+        ctx.clearRect(0, 0, w, h);
+
+        for (const p of particles) {
+          if (p.phase === 'done') {
+            ctx.fillStyle = 'rgba(255,255,255,0.82)';
+            ctx.fillRect(p.ox, p.oy, p.size, p.size);
+            continue;
+          }
+
+          const dx = p.ox - p.x;
+          const dy = p.oy - p.y;
+
+          if (p.phase === 'fall') {
+            p.vy += 0.22;                  /* gravity */
+            p.vx += dx * 0.0018;           /* gentle x-guidance */
+            p.vy  = Math.min(p.vy, 16);    /* terminal velocity */
+            if (p.y >= p.oy - 14) p.phase = 'spring';
+          } else {
+            /* spring to exact target */
+            p.vx += dx * 0.14;
+            p.vy += dy * 0.14;
+            p.vx *= 0.70;
+            p.vy *= 0.70;
+            if (Math.abs(dx) < 0.4 && Math.abs(dy) < 0.4 &&
+                Math.abs(p.vx) < 0.08 && Math.abs(p.vy) < 0.08) {
+              p.phase = 'done';
+            }
+          }
+
+          /* cursor repulsion */
+          const cdx = p.x - px, cdy = p.y - py;
+          const d2  = cdx * cdx + cdy * cdy;
+          if (d2 < R * R && p.phase === 'done') {
+            const d = Math.sqrt(d2) || 1, f = (R - d) / R;
+            p.vx += (cdx / d) * f * 5;
+            p.vy += (cdy / d) * f * 5;
+            p.phase = 'spring';
+          }
+
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.y < -8 || p.y > h + 8) continue;
+
+          const speed = Math.min(1, (Math.abs(p.vx) + Math.abs(p.vy)) / 12);
+          /* brighter while falling, dims to resting white */
+          ctx.fillStyle = `rgba(255,255,255,${0.38 + speed * 0.62})`;
+          ctx.fillRect(p.x, p.y, p.size, p.size);
+        }
+
+        raf = requestAnimationFrame(tick);
+      }
+
+      /* ── start only when canvas enters the viewport ── */
+      let started = false;
+      const observer = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && !started) {
+          started = true;
+          build();
+          raf = requestAnimationFrame(tick);
+          observer.disconnect();
+        }
+      }, { threshold: 0.1 });
+      observer.observe(canvas);
+
+      window.addEventListener('resize', () => {
+        if (!started) return;
+        cancelAnimationFrame(raf);
+        build();
+        raf = requestAnimationFrame(tick);
+      });
+      canvas.addEventListener('pointermove', e => {
+        const r = canvas.getBoundingClientRect();
+        pointer.x = e.clientX - r.left;
+        pointer.y = e.clientY - r.top;
+      });
+      canvas.addEventListener('pointerleave', () => {
+        pointer.x = -9999; pointer.y = -9999;
+      });
+    })();
+    </script>
+
+  </main>
+
+  <script>
+  (function () {
+    const intro  = document.getElementById('intro');
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+
+    if (sessionStorage.getItem('fpw_intro_shown')) { intro.remove(); return; }
+    sessionStorage.setItem('fpw_intro_shown', '1');
+
+    const ctx = canvas.getContext('2d');
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const W = canvas.width, H = canvas.height;
+
+    /* campiona i pixel del testo "unavoltavevolabarba" */
+    const off  = document.createElement('canvas');
+    off.width  = W; off.height = H;
+    const octx = off.getContext('2d');
+    let fs = Math.min(W / 10, 90);
+    octx.font = `700 ${fs}px "Space Mono", monospace`;
+    const mw = octx.measureText('unavoltavevolabarba').width;
+    if (mw > W * 0.88) {
+      fs *= (W * 0.88) / mw;
+      octx.font = `700 ${fs}px "Space Mono", monospace`;
+    }
+    octx.fillStyle    = '#fff';
+    octx.textAlign    = 'center';
+    octx.textBaseline = 'middle';
+    octx.fillText('unavoltavevolabarba', W / 2, H * 0.52);
+
+    const data = octx.getImageData(0, 0, W, H).data;
+    const gap  = Math.max(3, Math.round(W / 380));
+    const targets = [];
+    for (let y = 0; y < H; y += gap)
+      for (let x = 0; x < W; x += gap)
+        if (data[(y * W + x) * 4 + 3] > 128) targets.push([x, y]);
+
+    /* particelle: partono dall'alto in caduta libera */
+    const parts = targets.map(([ox, oy]) => ({
+      ox, oy,
+      x:  ox + (Math.random() - 0.5) * 30,
+      y:  -(H * (0.1 + Math.random() * 1.8)),
+      vx: (Math.random() - 0.5) * 0.8,
+      vy: 1.2 + Math.random() * 2.8,
+      size: Math.random() * 1.2 + 0.4,
+      phase: 'fall',
+    }));
+
+    let raf = 0;
+
+    function tick() {
+      ctx.fillStyle = 'rgba(0,0,0,0.18)';
+      ctx.fillRect(0, 0, W, H);
+
+      for (const p of parts) {
+        const dx = p.ox - p.x, dy = p.oy - p.y;
+
+        if (p.phase === 'fall') {
+          p.vy += 0.20;
+          p.vx += dx * 0.0015;
+          p.vy  = Math.min(p.vy, 14);
+          if (p.y >= p.oy - 12) p.phase = 'spring';
+        } else if (p.phase === 'spring') {
+          p.vx += dx * 0.13;
+          p.vy += dy * 0.13;
+          p.vx *= 0.72;
+          p.vy *= 0.72;
+          if (Math.abs(dx) < 0.3 && Math.abs(dy) < 0.3 &&
+              Math.abs(p.vx) < 0.06 && Math.abs(p.vy) < 0.06) {
+            p.phase = 'done';
+          }
+        }
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.y < -8 || p.y > H + 8) continue;
+
+        const speed = Math.hypot(p.vx, p.vy);
+        const alpha = p.phase === 'done' ? 0.85 : Math.min(1, 0.3 + speed * 0.06);
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+      }
+
+      raf = requestAnimationFrame(tick);
+    }
+
+    function dismiss() {
+      intro.classList.add('hidden');
+      setTimeout(() => { cancelAnimationFrame(raf); intro.remove(); }, 900);
+    }
+
+    tick();
+    setTimeout(dismiss, 4000);
+  })();
+  </script>
+</body>
+</html>
