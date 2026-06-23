@@ -304,14 +304,14 @@ font-display:auto;font-style:normal;font-weight:700;font-stretch:normal;
     off.width = w;
     off.height = h;
     const octx = off.getContext('2d');
-    const text = w < 700 ? 'BARBA' : 'UNAVOLTAVEVOLABARBA';
-    let fontSize = Math.min(w / (w < 700 ? 3.2 : 5.2), 190);
+    const text = 'unavoltavevolabarba';
+    let fontSize = Math.min(w / (w < 700 ? 8.5 : 5.2), 190);
 
     octx.fillStyle = '#fff';
     octx.textAlign = 'center';
     octx.textBaseline = 'middle';
     octx.font = `800 ${fontSize}px Helvetica, Arial, sans-serif`;
-    const targetW = w * 0.72;
+    const targetW = w * 0.88;
     const measured = octx.measureText(text).width;
     if (measured > targetW) {
       fontSize *= targetW / measured;

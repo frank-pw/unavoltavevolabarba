@@ -82,7 +82,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center center;
+      object-position: 54% center;
       filter: brightness(0.72);
       animation: hero-drift 20s ease-in-out infinite alternate;
       will-change: transform;
@@ -134,6 +134,11 @@
       cursor: none;
     }
 
+    @media (max-width: 599px) {
+      #particle-field { height: 400px; }
+      .hero-bg { object-position: center center; }
+    }
+
   </style>
 </head>
 <body>
@@ -175,22 +180,30 @@
         const off  = document.createElement('canvas');
         off.width  = w; off.height = h;
         const octx = off.getContext('2d');
-        const text = 'unavoltavevolabarba';
-        let fontSize = Math.min(w / 8.8, 160);
         octx.fillStyle    = '#fff';
         octx.textAlign    = 'center';
         octx.textBaseline = 'middle';
-        octx.font = `700 ${fontSize}px "Space Mono", monospace`;
-        const mw = octx.measureText(text).width;
-        if (mw > w * 0.88) {
-          fontSize *= (w * 0.88) / mw;
+
+        const isMobile = w < 600;
+        if (isMobile) {
+          const line1 = 'unavoltavevo', line2 = 'labarba';
+          let fontSize = Math.min(w / 5.5, 160);
           octx.font = `700 ${fontSize}px "Space Mono", monospace`;
+          const mw = octx.measureText(line1).width;
+          if (mw > w * 0.88) { fontSize *= (w * 0.88) / mw; octx.font = `700 ${fontSize}px "Space Mono", monospace`; }
+          octx.fillText(line1, w / 2, h * 0.35);
+          octx.fillText(line2, w / 2, h * 0.65);
+        } else {
+          const text = 'unavoltavevolabarba';
+          let fontSize = Math.min(w / 8.8, 160);
+          octx.font = `700 ${fontSize}px "Space Mono", monospace`;
+          const mw = octx.measureText(text).width;
+          if (mw > w * 0.88) { fontSize *= (w * 0.88) / mw; octx.font = `700 ${fontSize}px "Space Mono", monospace`; }
+          octx.fillText(text, w / 2, h * 0.68);
         }
-        /* draw low enough that rain has room to fall */
-        octx.fillText(text, w / 2, h * 0.68);
 
         const data = octx.getImageData(0, 0, w, h).data;
-        const gap  = Math.max(4, Math.round(w / 300));
+        const gap  = isMobile ? 2 : Math.max(3, Math.round(w / 300));
 
         const next = [];
         for (let y = 0; y < h; y += gap) {
@@ -321,24 +334,32 @@
     }
 
     document.fonts.ready.then(() => {
-      /* campiona i pixel del testo "unavoltavevolabarba" */
       const off  = document.createElement('canvas');
       off.width  = W; off.height = H;
       const octx = off.getContext('2d');
-      let fs = Math.min(W / 10, 90);
-      octx.font = `700 ${fs}px "Space Mono", monospace`;
-      const mw = octx.measureText('unavoltavevolabarba').width;
-      if (mw > W * 0.88) {
-        fs *= (W * 0.88) / mw;
-        octx.font = `700 ${fs}px "Space Mono", monospace`;
-      }
       octx.fillStyle    = '#fff';
       octx.textAlign    = 'center';
       octx.textBaseline = 'middle';
-      octx.fillText('unavoltavevolabarba', W / 2, H * 0.52);
+
+      const isMobile = W < 600;
+      if (isMobile) {
+        const line1 = 'unavoltavevo', line2 = 'labarba';
+        let fs = Math.min(W / 5.5, 90);
+        octx.font = `700 ${fs}px "Space Mono", monospace`;
+        const mw = octx.measureText(line1).width;
+        if (mw > W * 0.88) { fs *= (W * 0.88) / mw; octx.font = `700 ${fs}px "Space Mono", monospace`; }
+        octx.fillText(line1, W / 2, H * 0.44);
+        octx.fillText(line2, W / 2, H * 0.58);
+      } else {
+        let fs = Math.min(W / 10, 90);
+        octx.font = `700 ${fs}px "Space Mono", monospace`;
+        const mw = octx.measureText('unavoltavevolabarba').width;
+        if (mw > W * 0.88) { fs *= (W * 0.88) / mw; octx.font = `700 ${fs}px "Space Mono", monospace`; }
+        octx.fillText('unavoltavevolabarba', W / 2, H * 0.52);
+      }
 
       const data = octx.getImageData(0, 0, W, H).data;
-      const gap  = Math.max(3, Math.round(W / 380));
+      const gap  = isMobile ? 2 : Math.max(3, Math.round(W / 380));
       const targets = [];
       for (let y = 0; y < H; y += gap)
         for (let x = 0; x < W; x += gap)
