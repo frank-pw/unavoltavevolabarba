@@ -7,6 +7,7 @@
   const LINKS = [
     { label: 'Home',    href: 'index.html' },
     { label: 'Blog',    href: 'blog.html' },
+    { label: 'Portfolio', href: 'portfolio.html' },
     { label: 'Contatti', href: 'contatti.html' },
   ];
 
@@ -62,7 +63,7 @@
       position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
       z-index: 99999; display: flex; align-items: center; gap: 4px;
       background: #fff; border-radius: 999px; padding: 6px;
-      width: min(336px, calc(100vw - 32px)); box-sizing: border-box;
+      width: min(440px, calc(100vw - 24px)); box-sizing: border-box;
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
     .bottom-nav.intro-hidden {
@@ -79,6 +80,9 @@
     }
     .bottom-nav-item.active { background: #000; color: #fff; }
     .bottom-nav-item:hover:not(.active) { color: #000; }
+    @media (max-width: 479px) {
+      .bottom-nav-item { font-size: 12px; }
+    }
   `;
   document.head.appendChild(style);
 
